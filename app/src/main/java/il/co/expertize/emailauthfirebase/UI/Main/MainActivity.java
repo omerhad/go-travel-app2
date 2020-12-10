@@ -4,15 +4,14 @@
  * URL 2: https://github.com/buildbro/FirebaseEmailPasswordExample
  */
 
-package il.co.expertize.emailauthfirebase.MainApp;
+package il.co.expertize.emailauthfirebase.UI.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import il.co.expertize.emailauthfirebase.R;
-import il.co.expertize.emailauthfirebase.UI.LoginActivity;
-import il.co.expertize.emailauthfirebase.UI.CreateAccount;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;

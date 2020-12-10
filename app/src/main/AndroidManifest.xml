@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainApp.MainActivity">
+        <activity android:name=".UI.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.LoginActivity" />
-        <activity android:name=".UI.CreateAccount" />
+        <activity android:name=".UI.Main.LoginActivity" />
+        <activity android:name=".UI.Main.CreateAccount" />
         <activity android:name=".UI.NavigationDrawerActivity"/>
     </application>
 
