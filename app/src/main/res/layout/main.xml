@@ -22,8 +22,8 @@
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
-            tools:src="@drawable/yellow_bus"
-                    />
+            android:src="@drawable/imogi_with_kipa"
+             />
                 <Button
                     android:id="@+id/register"
                     android:layout_width="match_parent"
