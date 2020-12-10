@@ -12,7 +12,7 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
         mTextview = (TextView)findViewById(R.id.textView);
-
+//hi
         mTextview.setText("Hello:   " + getIntent().getStringExtra("myEmail"));
     }
 }
