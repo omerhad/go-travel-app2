@@ -15,8 +15,7 @@ import java.util.Map;
 
 import il.co.expertize.emailauthfirebase.Data.UserLocation;
 
-
-@Entity
+@Entity (tableName = "travels")
 public class Travel {
 
     @NonNull
