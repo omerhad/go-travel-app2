@@ -26,19 +26,33 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
 import il.co.expertize.emailauthfirebase.UI.NavigationDrawerActivity;
 
 public class CreateAccount extends AppCompatActivity {
 
-    private EditText emailTV, passwordTV;
+    private EditText emailTV, passwordTV,name, phone;
     private Button regBtn;
     private ProgressBar progressBar;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private FirebaseAuth mAuth;
     private Button btm_img;
     private ImageView imageView;
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+    private static final String USERS = "users";
+    private User user;
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +91,23 @@ public class CreateAccount extends AppCompatActivity {
     private void registerNewUser() {
 
 
-        String email, password;
+        String email, password, fullName, phoneNumber;
         email = emailTV.getText().toString();
         password = passwordTV.getText().toString();
-
+        fullName= name.getText().toString();
+        phoneNumber=phone.getText().toString();
+        if (!(imageView.isEnabled())) {
+            Toast.makeText(getApplicationContext(), "Please take a picture...", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(fullName)) {
+            Toast.makeText(getApplicationContext(), "Please enter name...", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(getApplicationContext(), "Please enter phone number...", Toast.LENGTH_LONG).show();
+            return;
+        }
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
             return;
@@ -90,7 +117,7 @@ public class CreateAccount extends AppCompatActivity {
             return;
         }
 
-
+        user=new User(email,password,fullName,phoneNumber,imageView);
 
 
 
@@ -114,8 +141,8 @@ public class CreateAccount extends AppCompatActivity {
                                                             int which) {
                                             Toast.makeText(getApplicationContext(), "VERIFY is clicked", Toast.LENGTH_LONG).show();
                                             sendEmailVerification();
-                                            Intent intent = new Intent(CreateAccount.this, MainActivity.class);
-                                            startActivity(intent);
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            updateUI(user);
                                         }
                                     });
                             builder.setNeutralButton("CANCEL",
@@ -179,7 +206,11 @@ public class CreateAccount extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         imageView=findViewById(R.id.image_view);
        btm_img=findViewById(R.id.picture_button);
-
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference(USERS);
+        mAuth = FirebaseAuth.getInstance();
+        name = findViewById(R.id.name);
+        phone = findViewById(R.id.phone);
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,5 +218,12 @@ public class CreateAccount extends AppCompatActivity {
                 registerNewUser();
             }
         });
+    }
+
+    public void updateUI(FirebaseUser currentUser) {
+        String keyid = mDatabase.push().getKey();
+        mDatabase.child(keyid).setValue(user); //adding user info to database
+        Intent intent = new Intent(CreateAccount.this, MainActivity.class);
+        startActivity(intent);
     }
 }
