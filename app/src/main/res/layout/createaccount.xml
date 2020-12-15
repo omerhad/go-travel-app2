@@ -10,6 +10,27 @@
     android:background="@drawable/newcolor"
     tools:context=".UI.Main.CreateAccount">
 
+<!--    <queries>-->
+<!--        <intent>-->
+<!--            <action android:name="android.media.action.IMAGE_CAPTURE" />-->
+<!--        </intent>-->
+<!--    </queries>-->
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:layout_weight="1" />
+<Button
+    android:layout_width="200dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    android:id="@+id/picture_button"
+    android:textStyle="bold"
+    android:textColor="#ffffff"
+    android:text="Capture Image"
+    android:background="@color/colorPrimary"
+    />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

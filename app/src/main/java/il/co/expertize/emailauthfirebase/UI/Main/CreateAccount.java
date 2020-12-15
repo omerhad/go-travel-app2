@@ -1,14 +1,18 @@
 package il.co.expertize.emailauthfirebase.UI.Main;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,15 +35,44 @@ public class CreateAccount extends AppCompatActivity {
     private EditText emailTV, passwordTV;
     private Button regBtn;
     private ProgressBar progressBar;
-
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private FirebaseAuth mAuth;
+    private Button btm_img;
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createaccount);
         mAuth = FirebaseAuth.getInstance();
         initializeUI();
+        btm_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,100);
+            }
+        });
     }
+
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (ActivityNotFoundException e) {
+            // display error state to the user
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(imageBitmap);
+        }
+    }
+
 
     private void registerNewUser() {
 
@@ -144,6 +177,9 @@ public class CreateAccount extends AppCompatActivity {
         passwordTV = findViewById(R.id.password);
         regBtn = findViewById(R.id.register);
         progressBar = findViewById(R.id.progressBar);
+        imageView=findViewById(R.id.image_view);
+       btm_img=findViewById(R.id.picture_button);
+
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
