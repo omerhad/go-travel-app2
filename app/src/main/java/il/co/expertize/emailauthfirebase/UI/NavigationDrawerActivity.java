@@ -92,29 +92,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
 
 
-//
-//
-//                userRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange( DataSnapshot snapshot) {
-//                for (DataSnapshot ds: snapshot.getChildren()){
-//                    if(ds.child("email").equals(recieveEmail)){
-//                        user=new User(ds.child("email").getValue(String.class)
-//                                ,ds.child("password").getValue(String.class),
-//                                ds.child("fullName").getValue(String.class),
-//                                ds.child("phone").getValue(String.class));
-//
-//                                break;
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-//
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
