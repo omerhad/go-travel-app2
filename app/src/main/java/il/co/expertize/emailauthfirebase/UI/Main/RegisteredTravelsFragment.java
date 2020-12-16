@@ -12,13 +12,16 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import il.co.expertize.emailauthfirebase.R;
 
 public class RegisteredTravelsFragment extends Fragment {
 
-    private RegisteredTravelsViewModel mViewModel;
-
+    //private RegisteredTravelsViewModel mViewModel;
+    View view;
+    Button button;
     public static RegisteredTravelsFragment newInstance() {
         return new RegisteredTravelsFragment();
     }
@@ -26,14 +29,13 @@ public class RegisteredTravelsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.registered_travels_fragment, container, false);
-    }
+        view= inflater.inflate(R.layout.company_travels_fragment, container, false);
+        button= view.findViewById(R.id.btm_1);
+        button.setOnClickListener((v) ->{
+            Toast.makeText(getActivity(),"Registered Travel",Toast.LENGTH_LONG).show();
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(RegisteredTravelsViewModel.class);
-        // TODO: Use the ViewModel
+        });
+        return  view;
     }
 
 }

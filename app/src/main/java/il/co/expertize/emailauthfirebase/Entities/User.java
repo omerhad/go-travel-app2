@@ -8,15 +8,7 @@ public class User {
     private String fullName;
     private String phone;
     private String password;
-    private ImageView imageView;
 
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
 
     public String getEmail() {
         return email;
@@ -58,11 +50,11 @@ public class User {
         this.email = email;
     }
 
-    public User(String email, String password,String fullName,  String phone,ImageView imageView) {
+    public User(String email, String password,String fullName,  String phone) {
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
         this.password=password;
-        this.imageView=imageView;
+
     }
 }

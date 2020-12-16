@@ -9,28 +9,75 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
 import il.co.expertize.emailauthfirebase.UI.Main.CompanyTravelsFragment;
 import il.co.expertize.emailauthfirebase.UI.Main.HistoryTravelsFragment;
+import il.co.expertize.emailauthfirebase.UI.Main.LoginActivity;
 import il.co.expertize.emailauthfirebase.UI.Main.RegisteredTravelsFragment;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
-
+    private TextView name,email;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
+    private DatabaseReference userRef;
+    private FirebaseDatabase database;
+    private User user;
+    private static final String USERS = "users";
+    private final String TAG = this.getClass().getName().toUpperCase();
 
    // @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container_nevigation_drawer);
+        Intent intent=getIntent();
+        String recieveEmail=intent.getStringExtra(LoginActivity.Email);
+        name=findViewById(R.id.textName);
+        email=findViewById(R.id.textEmail);
+
+        database = FirebaseDatabase.getInstance();
+        userRef = database.getReference(USERS);
+
+//
+//                userRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange( DataSnapshot snapshot) {
+//                for (DataSnapshot ds: snapshot.getChildren()){
+//                    if(ds.child("email").equals(recieveEmail)){
+//                        user=new User(ds.child("email").getValue(String.class)
+//                                ,ds.child("password").getValue(String.class),
+//                                ds.child("fullName").getValue(String.class),
+//                                ds.child("phone").getValue(String.class));
+//
+//                                break;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+//
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dl = (DrawerLayout)findViewById(R.id.navigation_drawer);
@@ -62,13 +109,13 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.History_Travel:
-                        loadFragment(new CompanyTravelsFragment());
+                        loadFragment(new  HistoryTravelsFragment());
                         return true;
                     case R.id.Registered_Travel:
-                        loadFragment(new HistoryTravelsFragment());
+                        loadFragment(new RegisteredTravelsFragment());
                         return true;
                     case R.id.Company_Travel:
-                        loadFragment(new RegisteredTravelsFragment());
+                        loadFragment(new CompanyTravelsFragment());
                         return true;
                     case R.id.exit:
                         finish();

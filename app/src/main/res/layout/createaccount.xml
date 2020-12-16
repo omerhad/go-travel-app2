@@ -16,26 +16,6 @@
 <!--        </intent>-->
 <!--    </queries>-->
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="300dp"
-        android:layout_height="10dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="#6DA5D1"
-        app:srcCompat="@drawable/ic_menu_camera" />
-
-
-<Button
-    android:layout_width="200dp"
-    android:layout_height="50dp"
-    android:layout_gravity="center"
-    android:id="@+id/picture_button"
-    android:textStyle="bold"
-    android:textColor="#ffffff"
-    android:text="Capture Image"
-    android:background="@color/colorPrimary"
-    />
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"

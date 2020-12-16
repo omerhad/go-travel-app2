@@ -40,12 +40,10 @@ public class CreateAccount extends AppCompatActivity {
     private ProgressBar progressBar;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private FirebaseAuth mAuth;
-    private Button btm_img;
-    private ImageView imageView;
     private FirebaseDatabase database;
     private DatabaseReference mDatabase;
     private static final String USERS = "users";
-    private User user;
+    private User user2;
 
 
 
@@ -59,33 +57,27 @@ public class CreateAccount extends AppCompatActivity {
         setContentView(R.layout.createaccount);
         mAuth = FirebaseAuth.getInstance();
         initializeUI();
-        btm_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,100);
-            }
-        });
+
     }
 
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        } catch (ActivityNotFoundException e) {
-            // display error state to the user
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(imageBitmap);
-        }
-    }
+//    private void dispatchTakePictureIntent() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        try {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        } catch (ActivityNotFoundException e) {
+//            // display error state to the user
+//        }
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 100) {
+//            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+//            imageView.setImageBitmap(imageBitmap);
+//        }
+//    }
 
 
     private void registerNewUser() {
@@ -96,10 +88,7 @@ public class CreateAccount extends AppCompatActivity {
         password = passwordTV.getText().toString();
         fullName= name.getText().toString();
         phoneNumber=phone.getText().toString();
-        if (!(imageView.isEnabled())) {
-            Toast.makeText(getApplicationContext(), "Please take a picture...", Toast.LENGTH_LONG).show();
-            return;
-        }
+
         if (TextUtils.isEmpty(fullName)) {
             Toast.makeText(getApplicationContext(), "Please enter name...", Toast.LENGTH_LONG).show();
             return;
@@ -117,7 +106,7 @@ public class CreateAccount extends AppCompatActivity {
             return;
         }
 
-        user=new User(email,password,fullName,phoneNumber,imageView);
+        user2=new User(email,password,fullName,phoneNumber);
 
 
 
@@ -141,8 +130,8 @@ public class CreateAccount extends AppCompatActivity {
                                                             int which) {
                                             Toast.makeText(getApplicationContext(), "VERIFY is clicked", Toast.LENGTH_LONG).show();
                                             sendEmailVerification();
-                                            FirebaseUser user = mAuth.getCurrentUser();
-                                            updateUI(user);
+                                            FirebaseUser user2 = mAuth.getCurrentUser();
+                                            updateUI(user2);
                                         }
                                     });
                             builder.setNeutralButton("CANCEL",
@@ -204,8 +193,6 @@ public class CreateAccount extends AppCompatActivity {
         passwordTV = findViewById(R.id.password);
         regBtn = findViewById(R.id.register);
         progressBar = findViewById(R.id.progressBar);
-        imageView=findViewById(R.id.image_view);
-       btm_img=findViewById(R.id.picture_button);
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference(USERS);
         mAuth = FirebaseAuth.getInstance();
@@ -222,7 +209,7 @@ public class CreateAccount extends AppCompatActivity {
 
     public void updateUI(FirebaseUser currentUser) {
         String keyid = mDatabase.push().getKey();
-        mDatabase.child(keyid).setValue(user); //adding user info to database
+        mDatabase.child(keyid).setValue(user2); //adding user info to database
         Intent intent = new Intent(CreateAccount.this, MainActivity.class);
         startActivity(intent);
     }
