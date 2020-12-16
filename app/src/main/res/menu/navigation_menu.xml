@@ -6,15 +6,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/History_Travel"
-            android:icon="@drawable/imogi_with_kipa"
+            android:icon="@drawable/history"
             android:title="History Travel" />
         <item
             android:id="@+id/Registered_Travel"
-            android:icon="@drawable/yellow_bus"
+            android:icon="@drawable/register"
             android:title="Registered Travel" />
         <item
             android:id="@+id/Company_Travel"
-            android:icon="@drawable/imogi_kaki"
+            android:icon="@drawable/company"
             android:title="Company Travel" />
 
     </group>
@@ -23,12 +23,9 @@
         <menu>
             <item
                 android:id="@+id/exit"
-                android:icon="@drawable/yellow_bus"
-                android:title="@string/exit" />
-            <item
-                android:id="@+id/help"
-                android:icon="@drawable/yellow_bus"
-                android:title="@string/help" />
+                android:icon="@drawable/exit"
+                android:title="Exit"/>
+
         </menu>
     </item>
 

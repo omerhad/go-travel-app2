@@ -15,8 +15,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +40,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     private NavigationView nv;
     private DatabaseReference userRef;
     private FirebaseDatabase database;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private User user;
     private static final String USERS = "users";
     private final String TAG = this.getClass().getName().toUpperCase();
@@ -49,11 +53,46 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String recieveEmail=intent.getStringExtra(LoginActivity.Email);
         name=findViewById(R.id.textName);
-        email=findViewById(R.id.textEmail);
+        email= findViewById(R.id.textEmail);
 
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(USERS);
 
+
+
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    if(ds.child("email").getValue(String.class).equals(recieveEmail)){
+                        user=new User(ds.child("email").getValue(String.class)
+                                ,ds.child("password").getValue(String.class),
+                                ds.child("fullName").getValue(String.class),
+                                ds.child("phone").getValue(String.class));
+                        Toast.makeText(getApplicationContext(),user.getEmail(),Toast.LENGTH_LONG).show();
+                                break;
+                    }
+                }
+                String a=user.getEmail().toString();
+                String b=user.getFullName().toString();
+                email.setText(a);
+                name.setText(b);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        userRef.addValueEventListener(postListener);
+
+
+
+//
 //
 //                userRef.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -117,9 +156,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     case R.id.Company_Travel:
                         loadFragment(new CompanyTravelsFragment());
                         return true;
-                    case R.id.exit:
-                        finish();
-                        System.exit(0);
+//                    case R.id.exit:
+//                        finish();
+//                        System.exit(0);
                     default:
                         return true;
                 }
@@ -135,6 +174,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     private void loadFragment(Fragment tmp) {
         dl.closeDrawer(nv);

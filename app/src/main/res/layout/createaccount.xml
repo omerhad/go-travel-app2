@@ -10,40 +10,50 @@
     android:background="@drawable/newcolor"
     tools:context=".UI.Main.CreateAccount">
 
-<!--    <queries>-->
-<!--        <intent>-->
-<!--            <action android:name="android.media.action.IMAGE_CAPTURE" />-->
-<!--        </intent>-->
-<!--    </queries>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Create new account"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
         android:hint="your name company" />
 
     <EditText
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
         android:hint="phone number"
-        android:inputType="textPassword"/>
+        android:ems="10"
+        android:inputType="phone"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create new account" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
         android:hint="Email" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
         android:hint="Password"
         android:inputType="textPassword" />
 
@@ -51,12 +61,16 @@
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
         android:text="Create" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4C2020"
+        android:textColorLink="#A83535"
         android:visibility="gone" />
 
 </LinearLayout>
