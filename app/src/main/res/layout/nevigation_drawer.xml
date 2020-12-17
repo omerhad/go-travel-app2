@@ -13,14 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="531dp"
-            android:foregroundGravity="center"
-            android:src="@drawable/welcame" />
-
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
@@ -28,6 +20,12 @@
             android:layout_marginTop="10dp">
 
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="404dp"
+                android:layout_marginBottom="531dp"
+                android:foregroundGravity="center"
+                android:src="@drawable/welcame" />
         </FrameLayout>
 
     </RelativeLayout>
@@ -39,11 +37,13 @@
         android:layout_gravity="start"
             android:id="@+id/nv"
          app:headerLayout="@layout/nav_header">
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+
+         <TextView
+             android:id="@+id/textName"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:textColor="#D54545"
+             android:textStyle="bold" />
      </com.google.android.material.navigation.NavigationView>
 
 

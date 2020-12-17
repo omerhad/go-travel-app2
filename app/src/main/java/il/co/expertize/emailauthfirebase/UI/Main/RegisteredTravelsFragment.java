@@ -29,7 +29,7 @@ public class RegisteredTravelsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.company_travels_fragment, container, false);
+        view= inflater.inflate(R.layout.registered_travels_fragment, container, false);
         button= view.findViewById(R.id.btm_1);
         button.setOnClickListener((v) ->{
             Toast.makeText(getActivity(),"Registered Travel",Toast.LENGTH_LONG).show();
