@@ -53,7 +53,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String recieveEmail=intent.getStringExtra(LoginActivity.Email);
         name=findViewById(R.id.textName);
-        email= findViewById(R.id.textEmail);
+       // email= findViewById(R.id.textEmail);
 
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(USERS);
@@ -77,8 +77,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 }
                 String a=user.getEmail().toString();
                 String b=user.getFullName().toString();
-                email.setText(a);
-                name.setText(b);
+                //email.setText(a+"\n"+b);
+                name.setText("\n"+"\n"+"\n"+"\n"+b+"\n"+a);
             }
 
             @Override
