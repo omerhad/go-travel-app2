@@ -140,26 +140,17 @@ public class Travel {
 
 
 
+
     public enum RequestType {
-        sent("0"),
-        accepted("1"),
-        run(2),
-        close(3),
-        payed(4);
-
-        public Integer code;
-        private String str;
-
-        private RequestType(String friendlyName){
-            this.str = friendlyName;
-        }
-
+        sent(0), accepted(1), run(2), close(3), paid(4);
+        private final Integer code;
         RequestType(Integer value) {
             this.code = value;
         }
         public Integer getCode() {
             return code;
         }
+
         @TypeConverter
         public static RequestType getType(Integer numeral) {
             for (RequestType ds : values())
@@ -173,13 +164,8 @@ public class Travel {
                 return requestType.code;
             return null;
         }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return str;
-        }
     }
+
 
 
 

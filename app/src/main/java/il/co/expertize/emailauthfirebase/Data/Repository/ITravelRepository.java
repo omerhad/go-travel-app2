@@ -11,6 +11,10 @@ public interface ITravelRepository {
 
     void addTravel(Travel travel);
     void updateTravel(Travel travel);
-    MutableLiveData<List<Travel>> getAllTravels();
+    List<Travel> getAllTravels();
     MutableLiveData<Boolean> getIsSuccess();
+    interface NotifyToTravelListListener {
+        void onTravelsChanged();
+    }
+    void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l);
 }
