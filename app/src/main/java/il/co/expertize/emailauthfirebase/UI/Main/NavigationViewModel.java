@@ -13,10 +13,10 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.Data.Repository.ITravelRepository;
 import il.co.expertize.emailauthfirebase.Data.Repository.TravelRepository;
 
-public class MainViewModel extends AndroidViewModel {
+public class NavigationViewModel extends AndroidViewModel {
     ITravelRepository repository;
     private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
-    public MainViewModel(Application p) {
+    public NavigationViewModel(Application p) {
         super(p);
         repository =  TravelRepository.getInstance(p);
 

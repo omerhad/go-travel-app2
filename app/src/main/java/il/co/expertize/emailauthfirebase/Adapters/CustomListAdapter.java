@@ -9,15 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.R;
-import il.co.expertize.emailauthfirebase.UI.Main.MainViewModel;
-import il.co.expertize.emailauthfirebase.UI.Main.RegisteredTravelsFragment;
-import il.co.expertize.emailauthfirebase.UI.NavigationDrawerActivity;
 
 
 /**

@@ -2,7 +2,6 @@ package il.co.expertize.emailauthfirebase.UI.Main;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,20 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Adapters.CustomListAdapter;
@@ -38,7 +33,7 @@ public class RegisteredTravelsFragment extends Fragment {
     View view;
     Button button;
     CustomListAdapter adapter;
-    MainViewModel mViewModel;
+    NavigationViewModel mViewModel;
     Context context;
     ListView itemsListView;
     RecyclerView recyclerView;
@@ -69,7 +64,9 @@ public class RegisteredTravelsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(MainViewModel.class);
+        //mViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(MainViewModel.class);
+         mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
+        // mViewModel=new ViewModelProvider(this.getActivity().get(MainViewModel.class);
         itemsListView  = (ListView)view.findViewById(R.id.list_register);
 
 

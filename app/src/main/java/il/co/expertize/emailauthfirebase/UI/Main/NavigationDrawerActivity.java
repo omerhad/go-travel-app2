@@ -1,4 +1,4 @@
-package il.co.expertize.emailauthfirebase.UI;
+package il.co.expertize.emailauthfirebase.UI.Main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;

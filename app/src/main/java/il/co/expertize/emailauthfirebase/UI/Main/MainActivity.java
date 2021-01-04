@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private String travelDate;
-    MainViewModel travelViewModel;
+    NavigationViewModel travelViewModel;
     Button registerBtn, loginBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
 
         initializeViews();
-        travelViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(MainViewModel.class);
+        travelViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(NavigationViewModel.class);
         travelViewModel.getIsSuccess().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean t) {
