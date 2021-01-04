@@ -92,7 +92,7 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolder.clientName.setText(currentItem.getClientName());
         viewHolder.clientDestination.setText(currentItem.getTravelLocation().toString());
         viewHolder.clientDate.setText(currentItem.getArrivalDate().toString());
-        viewHolder.clientStatus.setAdapter(new ArrayAdapter<Travel.RequestType>(this.context,R.layout.registered_travels_fragment,enumR));
+       // viewHolder.clientStatus.setAdapter(new ArrayAdapter<Travel.RequestType>(this.context,R.layout.registered_travels_fragment,enumR));
         return convertView;
     }
 

@@ -63,13 +63,12 @@ public class RegisteredTravelsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //mViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(MainViewModel.class);
-         mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
-        // mViewModel=new ViewModelProvider(this.getActivity().get(MainViewModel.class);
         itemsListView  = (ListView)view.findViewById(R.id.list_register);
 
 
+        //mViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(MainViewModel.class);
+
+         mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
         mViewModel.getAllTravels().observe(this, new Observer<List<Travel>>() {
             @Override
             public void onChanged(List<Travel> travels) {
@@ -77,17 +76,6 @@ public class RegisteredTravelsFragment extends Fragment {
 
                 //create adapter object
                 CustomListAdapter adapter = new CustomListAdapter(context, tmp);
-                mViewModel.getAllTravels().observe(getViewLifecycleOwner(), new Observer<List<Travel>>() {
-                    @Override
-                    public void onChanged(List<Travel> travels) {
-                        ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
-
-                        //create adapter object
-                        CustomListAdapter adapter = new CustomListAdapter(context, tmp);
-
-                        //set custom adapter as adapter to our list view
-                        itemsListView.setAdapter(adapter);
-                    }});
 
                 //set custom adapter as adapter to our list view
                 itemsListView.setAdapter(adapter);

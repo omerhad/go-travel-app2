@@ -38,11 +38,11 @@ public class TravelRepository implements ITravelRepository {
         ITravelDataSource.NotifyToTravelListListener notifyToTravelListListener = new ITravelDataSource.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-                List<Travel> travelList = travelDataSource.getAllTravels();
-                mutableLiveData.setValue(travelList);
+                travelList = travelDataSource.getAllTravels();
 
-                historyDataSource.clearTable();
-                historyDataSource.addTravel(travelList);
+
+                if (notifyToTravelListListenerRepository != null)
+                    notifyToTravelListListenerRepository.onTravelsChanged();
 
             }
         };

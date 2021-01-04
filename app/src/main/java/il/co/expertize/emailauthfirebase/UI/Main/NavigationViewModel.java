@@ -18,6 +18,7 @@ public class NavigationViewModel extends AndroidViewModel {
     private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
     public NavigationViewModel(Application p) {
         super(p);
+
         repository =  TravelRepository.getInstance(p);
 
         ITravelRepository.NotifyToTravelListListener notifyToTravelListListener = new ITravelRepository.NotifyToTravelListListener() {
@@ -62,4 +63,6 @@ public class NavigationViewModel extends AndroidViewModel {
 //    {
 //        return repository.getIsSuccess();
 //    }
+
+
 }
