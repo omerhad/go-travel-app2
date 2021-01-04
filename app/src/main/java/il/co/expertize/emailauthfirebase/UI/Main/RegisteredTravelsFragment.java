@@ -62,51 +62,50 @@ public class RegisteredTravelsFragment extends Fragment {
 
         View view= inflater.inflate(R.layout.registered_travels_fragment, container, false);
        // mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        mViewModel=new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(MainViewModel.class);
         itemsListView  = (ListView)view.findViewById(R.id.list_register);
 
 
-        mViewModel.getAllTravels().observe(getViewLifecycleOwner(), new Observer<List<Travel>>() {
+        mViewModel.getAllTravels().observe(this, new Observer<List<Travel>>() {
             @Override
             public void onChanged(List<Travel> travels) {
                 ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
 
                 //create adapter object
                 CustomListAdapter adapter = new CustomListAdapter(context, tmp);
+                mViewModel.getAllTravels().observe(getViewLifecycleOwner(), new Observer<List<Travel>>() {
+                    @Override
+                    public void onChanged(List<Travel> travels) {
+                        ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
+
+                        //create adapter object
+                        CustomListAdapter adapter = new CustomListAdapter(context, tmp);
+
+                        //set custom adapter as adapter to our list view
+                        itemsListView.setAdapter(adapter);
+                    }});
 
                 //set custom adapter as adapter to our list view
                 itemsListView.setAdapter(adapter);
             }});
-//        context =RegisteredTravelsFragment.this.getActivity().getBaseContext();
-//        recyclerView = (RecyclerView) view.findViewById(R.id.user_travel_recyclerView);
-//        DividerItemDecoration itemDecor = new DividerItemDecoration(RegisteredTravelsFragment.this.getActivity(),1);
-//        recyclerView.addItemDecoration(itemDecor);
-//
-//        mViewModel.getAllTravels().observe(getViewLifecycleOwner(), new Observer<List<Travel>>() {
-//            @Override
-//            public void onChanged(List<Travel> travels) {
-//                tmp=new ArrayList<>(travels);
-//
-//                //Travel[] travelsArr = new Travel[travels.size()];
-//                //travels.toArray(travelsArr);
-//                adapter = new CustomListAdapter( context,tmp);
-////                recyclerView.setHasFixedSize(true);
-////                recyclerView.setLayoutManager(new LinearLayoutManager(RegisteredTravelsFragment.this.getActivity()));
-//                itemsListView.setAdapter(adapter);
-//
-//
-//            }
-//        });
-
-
-        return view;
     }
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//    }
+
+
+
+
+
+
+
+
+
 
 //
 //    @Override
