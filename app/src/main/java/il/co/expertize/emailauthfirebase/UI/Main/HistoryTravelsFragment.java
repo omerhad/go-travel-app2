@@ -1,10 +1,10 @@
 package il.co.expertize.emailauthfirebase.UI.Main;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

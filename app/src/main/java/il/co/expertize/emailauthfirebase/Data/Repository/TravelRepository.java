@@ -16,6 +16,8 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 public class TravelRepository implements ITravelRepository {
     ITravelDataSource travelDataSource;
     private IHistoryDataSource historyDataSource;
+    private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository;
+    List<Travel> travelList;
 
 
     private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
@@ -59,12 +61,18 @@ public class TravelRepository implements ITravelRepository {
     }
 
     @Override
-    public MutableLiveData<List<Travel>> getAllTravels() {
-        return mutableLiveData;
+    public List<Travel> getAllTravels() {
+        return travelList;
     }
+
 
     @Override
     public MutableLiveData<Boolean> getIsSuccess() {
         return travelDataSource.getIsSuccess();
+    }
+
+    @Override
+    public void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l) {
+        notifyToTravelListListenerRepository = l;
     }
 }

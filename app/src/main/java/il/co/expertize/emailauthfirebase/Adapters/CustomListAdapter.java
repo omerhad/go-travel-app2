@@ -89,12 +89,14 @@ public class CustomListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        Travel.RequestType[] enumR;
+        enumR=new Travel.RequestType[]{Travel.RequestType.accepted, Travel.RequestType.close, Travel.RequestType.paid, Travel.RequestType.run, Travel.RequestType.sent};
 
         Travel currentItem = (Travel) getItem(position);
         viewHolder.clientName.setText(currentItem.getClientName());
         viewHolder.clientDestination.setText(currentItem.getTravelLocation().toString());
         viewHolder.clientDate.setText(currentItem.getArrivalDate().toString());
-
+        viewHolder.clientStatus.setAdapter(new ArrayAdapter<Travel.RequestType>(this.context,R.layout.registered_travels_fragment,enumR));
         return convertView;
     }
 
@@ -105,6 +107,8 @@ public class CustomListAdapter extends BaseAdapter {
         TextView clientDate;
         Spinner clientStatus;
         Spinner company;
+
+
 
         public ViewHolder(View view) {
             clientName = (TextView)view.findViewById(R.id.name);
@@ -127,7 +131,7 @@ public class CustomListAdapter extends BaseAdapter {
             });
 
             //Creating the ArrayAdapter instance having the bank name list
-            ArrayAdapter aa = new ArrayAdapter(context,android.R.layout.simple_spinner_item,Travel.RequestType.values());
+            ArrayAdapter aa = new ArrayAdapter<Travel.RequestType>(context,android.R.layout.simple_spinner_item,Travel.RequestType.values());
             aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             company.setAdapter(aa);
