@@ -1,6 +1,7 @@
 package il.co.expertize.emailauthfirebase.UI.Main;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.Date;
 import java.util.HashMap;
@@ -52,10 +56,12 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private User user;
+    private String travelDate;
     private static final String USERS = "users";
     private final String TAG = this.getClass().getName().toUpperCase();
 
    // @SuppressLint("ResourceType")
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +75,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         userRef = database.getReference(USERS);
 
 
-        travelViewModel= ViewModelProviders.of(this).get(NavigationViewModel.class);;
+        travelViewModel= ViewModelProviders.of(this).get(NavigationViewModel.class);
         travelViewModel.getIsSuccess().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean t) {
@@ -82,49 +88,50 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
 
         //Insert Travels
-//        try {
-////            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-////            travelDate = format.format(new Date());
-////            travelDate = "2021" + "/" + "09" + "/" + "13";
-//            Date tDate = new Date(2021,2,22);//new Travel.DateConverter().fromTimestamp(travelDate);
-//            if (tDate == null)
-//                throw new Exception("שגיאה בתאריך");
-//
-//            Travel travel1 = new Travel();
-//            travel1.setClientName("Jony");
-//            travel1.setClientPhone("026456677");
-//            travel1.setClientEmail("Yossi05489@gmail.com");
-//            travel1.setTravelLocation(new UserLocation(10.0, 20.0));
-//            travel1.setTravelDate(tDate);
-//            travel1.setArrivalDate(tDate);
-//            travel1.setRequesType(Travel.RequestType.sent);
-//            travel1.setCompany(new HashMap<String, Boolean>());
-//            travel1.getCompany().put("Afikim",Boolean.FALSE);
-//            travel1.getCompany().put("SuperBus",Boolean.FALSE);
-//            travel1.getCompany().put("SmartBus",Boolean.FALSE);
-//            travel1.getCompany().put("SmartBus",Boolean.TRUE);
-//            travelViewModel.addTravel(travel1);
-//
-//            Travel travel2 = new Travel();
-//            travel2.setClientName("Ronit");
-//            travel2.setClientPhone("026334512");
-//            travel2.setClientEmail("RonitMarxs@gmail.com");
-//            travel2.setTravelLocation(new UserLocation(15.0, 25.0));
-//            travel2.setTravelDate(tDate);
-//            travel2.setArrivalDate(tDate);
-//            travel2.setRequesType(Travel.RequestType.sent);
-//            travel2.setCompany(new HashMap<String, Boolean>());
-//            travel2.getCompany().put("Egged",Boolean.FALSE);
-//            travel2.getCompany().put("TsirTour",Boolean.FALSE);
-//
-//            travelViewModel.addTravel(travel2);
-//
-//            travel2.setClientName("Bluma");
-//            travelViewModel.updateTravel(travel2);
-//
-//        } catch (Exception e) {
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-//        }
+        try {
+           String travelDate ;
+                travelDate =  "2020"+"-"+"02"+"-"+"25";
+                 String  travelDate2 =  "2020"+"-"+"02"+"-"+"30";
+                Date tDate = new Travel.DateConverter().fromTimestamp(travelDate);
+                 Date tDate2 = new Travel.DateConverter().fromTimestamp(travelDate2);
+                if (tDate == null)
+                    throw new Exception("שגיאה בתאריך");
+
+            Travel travel1 = new Travel();
+            travel1.setClientName("Jony");
+            travel1.setClientPhone("026456677");
+            travel1.setClientEmail("Yossi05489@gmail.com");
+            travel1.setTravelLocation(new UserLocation(10.0, 20.0));
+            travel1.setTravelDate(tDate);
+            travel1.setArrivalDate(tDate2);
+            travel1.setRequesType(Travel.RequestType.sent);
+            travel1.setCompany(new HashMap<String, Boolean>());
+            travel1.getCompany().put("Afikim",Boolean.FALSE);
+            travel1.getCompany().put("SuperBus",Boolean.FALSE);
+            travel1.getCompany().put("SmartBus",Boolean.FALSE);
+            travel1.getCompany().put("SmartBus",Boolean.TRUE);
+            travelViewModel.addTravel(travel1);
+
+            Travel travel2 = new Travel();
+            travel2.setClientName("Ronit");
+            travel2.setClientPhone("026334512");
+            travel2.setClientEmail("RonitMarxs@gmail.com");
+            travel2.setTravelLocation(new UserLocation(15.0, 25.0));
+            travel2.setTravelDate(tDate);
+            travel2.setArrivalDate(tDate2);
+            travel2.setRequesType(Travel.RequestType.sent);
+            travel2.setCompany(new HashMap<String, Boolean>());
+            travel2.getCompany().put("Egged",Boolean.FALSE);
+            travel2.getCompany().put("TsirTour",Boolean.FALSE);
+
+            travelViewModel.addTravel(travel2);
+
+            travel2.setClientName("Bluma");
+            travelViewModel.updateTravel(travel2);
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
 
         ValueEventListener postListener = new ValueEventListener() {

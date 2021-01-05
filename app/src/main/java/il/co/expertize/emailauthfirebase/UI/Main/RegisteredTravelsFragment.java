@@ -1,9 +1,11 @@
 package il.co.expertize.emailauthfirebase.UI.Main;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -70,12 +72,13 @@ public class RegisteredTravelsFragment extends Fragment {
 
          mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
         mViewModel.getAllTravels().observe(this, new Observer<List<Travel>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<Travel> travels) {
                 ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
 
                 //create adapter object
-                CustomListAdapter adapter = new CustomListAdapter(context, tmp);
+                CustomListAdapter adapter = new CustomListAdapter(context, tmp,requireActivity());
 
                 //set custom adapter as adapter to our list view
                 itemsListView.setAdapter(adapter);

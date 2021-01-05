@@ -34,7 +34,7 @@ public class NavigationViewModel extends AndroidViewModel {
     {
         repository.addTravel(travel);
     }
-    void updateTravel(Travel travel)
+    public void updateTravel(Travel travel)
     {
         repository.updateTravel(travel);
     }

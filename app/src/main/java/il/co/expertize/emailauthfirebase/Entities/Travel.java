@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 import il.co.expertize.emailauthfirebase.Data.UserLocation;
+import il.co.expertize.emailauthfirebase.R;
+import il.co.expertize.emailauthfirebase.UI.Main.CompanyTravelsFragment;
+import il.co.expertize.emailauthfirebase.UI.Main.HistoryTravelsFragment;
+import il.co.expertize.emailauthfirebase.UI.Main.RegisteredTravelsFragment;
 
 @Entity (tableName = "travels")
 public class Travel {
@@ -142,7 +146,7 @@ public class Travel {
 
 
     public enum RequestType {
-        sent(0), accepted(1), run(2), close(3), paid(4);
+        sent(2), accepted(3), run(1), close(0), paid(4);
         private final Integer code;
         RequestType(Integer value) {
             this.code = value;
@@ -164,6 +168,23 @@ public class Travel {
                 return requestType.code;
             return null;
         }
+
+       public String toStr(int a) {
+           switch (a) {
+               case 0:
+                   return "close";
+               case 1:
+                   return "run";
+               case 2:
+                   return "sent";
+               case 3:
+                   return "accepted";
+               case 4:
+                   return "paid";
+               default:
+                   return "no request type";
+           }
+       }
     }
 
 
