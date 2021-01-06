@@ -10,8 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
-import il.co.expertize.emailauthfirebase.Data.Repository.ITravelRepository;
-import il.co.expertize.emailauthfirebase.Data.Repository.TravelRepository;
+import il.co.expertize.emailauthfirebase.Repository.ITravelRepository;
+import il.co.expertize.emailauthfirebase.Repository.TravelRepository;
 
 public class NavigationViewModel extends AndroidViewModel {
     ITravelRepository repository;
@@ -24,7 +24,7 @@ public class NavigationViewModel extends AndroidViewModel {
         ITravelRepository.NotifyToTravelListListener notifyToTravelListListener = new ITravelRepository.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-                List<Travel> travelList =repository.getAllTravels();
+                List<Travel> travelList =repository.getAllTravels().getValue();
                 mutableLiveData.setValue(travelList);
             }
         };

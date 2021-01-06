@@ -85,54 +85,54 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     Toast.makeText(NavigationDrawerActivity.this, "Data Not Inserted", Toast.LENGTH_LONG).show();
             }
         });
-
-
-        //Insert Travels
-        try {
-           String travelDate ;
-                travelDate =  "2020"+"-"+"02"+"-"+"25";
-                 String  travelDate2 =  "2020"+"-"+"02"+"-"+"30";
-                Date tDate = new Travel.DateConverter().fromTimestamp(travelDate);
-                 Date tDate2 = new Travel.DateConverter().fromTimestamp(travelDate2);
-                if (tDate == null)
-                    throw new Exception("שגיאה בתאריך");
-
-            Travel travel1 = new Travel();
-            travel1.setClientName("Jony");
-            travel1.setClientPhone("026456677");
-            travel1.setClientEmail("Yossi05489@gmail.com");
-            travel1.setTravelLocation(new UserLocation(10.0, 20.0));
-            travel1.setTravelDate(tDate);
-            travel1.setArrivalDate(tDate2);
-            travel1.setRequesType(Travel.RequestType.sent);
-            travel1.setCompany(new HashMap<String, Boolean>());
-            travel1.getCompany().put("Afikim",Boolean.FALSE);
-            travel1.getCompany().put("SuperBus",Boolean.FALSE);
-            travel1.getCompany().put("SmartBus",Boolean.FALSE);
-            travel1.getCompany().put("SmartBus",Boolean.TRUE);
-            travelViewModel.addTravel(travel1);
-
-            Travel travel2 = new Travel();
-            travel2.setClientName("Ronit");
-            travel2.setClientPhone("026334512");
-            travel2.setClientEmail("RonitMarxs@gmail.com");
-            travel2.setTravelLocation(new UserLocation(15.0, 25.0));
-            travel2.setTravelDate(tDate);
-            travel2.setArrivalDate(tDate2);
-            travel2.setRequesType(Travel.RequestType.sent);
-            travel2.setCompany(new HashMap<String, Boolean>());
-            travel2.getCompany().put("Egged",Boolean.FALSE);
-            travel2.getCompany().put("TsirTour",Boolean.FALSE);
-
-            travelViewModel.addTravel(travel2);
-
-            travel2.setClientName("Bluma");
-            travelViewModel.updateTravel(travel2);
-
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
+//
+//
+//        //Insert Travels
+//        try {
+//           String travelDate ;
+//                travelDate =  "2020"+"-"+"02"+"-"+"25";
+//                 String  travelDate2 =  "2020"+"-"+"02"+"-"+"30";
+//                Date tDate = new Travel.DateConverter().fromTimestamp(travelDate);
+//                 Date tDate2 = new Travel.DateConverter().fromTimestamp(travelDate2);
+//                if (tDate == null)
+//                    throw new Exception("שגיאה בתאריך");
+//
+//            Travel travel1 = new Travel();
+//            travel1.setClientName("elyasaf");
+//            travel1.setClientPhone("026456677");
+//            travel1.setClientEmail("elyasaf007@gmail.com");
+//            travel1.setTravelLocation(new UserLocation(31.7650581, 35.191158099999996));
+//            travel1.setTravelDate(tDate);
+//            travel1.setArrivalDate(tDate2);
+//            travel1.setRequesType(Travel.RequestType.sent);
+//            travel1.setCompany(new HashMap<String, Boolean>());
+//            travel1.getCompany().put("Afikim",Boolean.FALSE);
+//            travel1.getCompany().put("SuperBus",Boolean.FALSE);
+//            travel1.getCompany().put("SmartBus",Boolean.FALSE);
+//            travel1.getCompany().put("SmartBus",Boolean.TRUE);
+//            travelViewModel.addTravel(travel1);
+//
+//            Travel travel2 = new Travel();
+//            travel2.setClientName("Ronit");
+//            travel2.setClientPhone("026334512");
+//            travel2.setClientEmail("elyasaf007@gmail.com");
+//            travel2.setTravelLocation(new UserLocation(31.789271699999997, 35.1777526));
+//            travel2.setTravelDate(tDate);
+//            travel2.setArrivalDate(tDate2);
+//            travel2.setRequesType(Travel.RequestType.sent);
+//            travel2.setCompany(new HashMap<String, Boolean>());
+//            travel2.getCompany().put("Egged",Boolean.FALSE);
+//            travel2.getCompany().put("TsirTour",Boolean.FALSE);
+//
+//            travelViewModel.addTravel(travel2);
+//
+//            travel2.setClientName("omer");
+//            travelViewModel.updateTravel(travel2);
+//
+//        } catch (Exception e) {
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+//        }
+//
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -206,8 +206,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     case R.id.Company_Travel:
                         loadFragment(new CompanyTravelsFragment());
                         return true;
-//                    case R.id.exit:
-//                        finish();
+                        case R.id.exit:
+                       finish();
 //                        System.exit(0);
                     default:
                         return true;

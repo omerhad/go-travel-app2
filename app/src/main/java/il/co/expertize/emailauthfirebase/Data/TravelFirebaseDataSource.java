@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +23,8 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 public class TravelFirebaseDataSource implements  ITravelDataSource{
 
     private static final String TAG = "Firebase";
-
+    //FirebaseUser user;
+   // private String a= user.getEmail();
     private MutableLiveData<Boolean> isSuccess= new MutableLiveData<>();
     private List<Travel> allTravelsList;
 
@@ -50,8 +52,10 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
                 allTravelsList.clear();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                        if (a == snapshot.getValue(Travel.class).getClientEmail().toString()){
                         Travel travel = snapshot.getValue(Travel.class);
                         allTravelsList.add(travel);
+                        //}
                     }
                 }
                 if (notifyToTravelListListener != null)
@@ -107,8 +111,9 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
 
     @Override
     public void updateTravel(final Travel toUpdate) {
-        removeTravel(toUpdate.getTravelId());
-        addTravel(toUpdate);
+//        removeTravel(toUpdate.getTravelId());
+//        addTravel(toUpdate);
+        travels.child(toUpdate.getTravelId()).setValue(toUpdate);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package il.co.expertize.emailauthfirebase.Data.Repository;
+package il.co.expertize.emailauthfirebase.Repository;
 
 
 
@@ -11,7 +11,7 @@ public interface ITravelRepository {
 
     void addTravel(Travel travel);
     void updateTravel(Travel travel);
-    List<Travel> getAllTravels();
+    MutableLiveData<List<Travel>> getAllTravels();
     MutableLiveData<Boolean> getIsSuccess();
     interface NotifyToTravelListListener {
         void onTravelsChanged();

@@ -1,10 +1,14 @@
-package il.co.expertize.emailauthfirebase.Data.Repository;
+package il.co.expertize.emailauthfirebase.Repository;
 
 
 import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.LinkedList;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Data.HistoryDataSource;
@@ -15,9 +19,12 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 
 public class TravelRepository implements ITravelRepository {
     ITravelDataSource travelDataSource;
+    FirebaseUser user;
+    public FirebaseAuth mAuth;
     private IHistoryDataSource historyDataSource;
     private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository;
     List<Travel> travelList;
+    List<Travel> travelList2=new LinkedList<Travel>();
 
 
     private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
@@ -34,12 +41,13 @@ public class TravelRepository implements ITravelRepository {
     private TravelRepository(Application application) {
         travelDataSource = TravelFirebaseDataSource.getInstance();
         historyDataSource = new HistoryDataSource(application.getApplicationContext());
-
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         ITravelDataSource.NotifyToTravelListListener notifyToTravelListListener = new ITravelDataSource.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
+               // travelList.clear();
                 travelList = travelDataSource.getAllTravels();
-
 
                 if (notifyToTravelListListenerRepository != null)
                     notifyToTravelListListenerRepository.onTravelsChanged();
@@ -61,8 +69,16 @@ public class TravelRepository implements ITravelRepository {
     }
 
     @Override
-    public List<Travel> getAllTravels() {
-        return travelList;
+    public  MutableLiveData<List<Travel>> getAllTravels() {
+        travelList2.clear();
+       // String strEmail=user.getEmail();
+        for (Travel travel:travelList) {
+            if (travel.getClientEmail().equals(user.getEmail()) && !(travel.getRequesType().equals(Travel.RequestType.close)))
+                travelList2.add(travel);
+        }
+        //travelList=travelList2;
+        mutableLiveData.setValue(travelList2);
+        return mutableLiveData;
     }
 
 

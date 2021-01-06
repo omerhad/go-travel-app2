@@ -125,10 +125,12 @@ public class CustomListAdapter extends BaseAdapter {
 
         Travel currentItem = (Travel) getItem(position);
         viewHolder.clientName.setText(currentItem.getClientName());
-        viewHolder.clientDestination.setText("destination:  " + strLocation);
-        viewHolder.exp.setText("your current status is:    " + currentItem.getRequesType().toStr(Travel.RequestType.getTypeInt(currentItem.getRequesType())));
-        viewHolder.clientDate.setText("start Date:"+format.format(currentItem.getTravelDate()));
-        viewHolder.clientDate2.setText("Arrivad Date:"+format.format(currentItem.getArrivalDate()));
+        viewHolder.clientDestination.setText("destination:      " + strLocation);
+        viewHolder.exp.setText("your current status is:      " + currentItem.getRequesType().toStr(Travel.RequestType.getTypeInt(currentItem.getRequesType())));
+        viewHolder.clientDate.setText("start Date:      "+format.format(currentItem.getTravelDate()));
+        viewHolder.clientDate2.setText("Arrivad Date:      "+format.format(currentItem.getArrivalDate()));
+        ArrayAdapter<String> adapter= new ArrayAdapter<> (context ,android.R.layout.simple_spinner_item, new ArrayList<String>( currentItem.getCompany().keySet()) )  ;
+        viewHolder.company.setAdapter(adapter);
 
         viewHolder.clientStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
