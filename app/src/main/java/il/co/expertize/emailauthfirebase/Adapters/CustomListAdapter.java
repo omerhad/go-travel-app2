@@ -131,6 +131,9 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolder.clientDate.setText("start Date:      "+format.format(currentItem.getTravelDate()));
         viewHolder.clientDate2.setText("Arrivad Date:      "+format.format(currentItem.getArrivalDate()));
         ArrayAdapter<String> adapter= new ArrayAdapter<> (context ,android.R.layout.simple_spinner_item, new ArrayList<String>( currentItem.getCompany().keySet()) )  ;
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        viewHolder.clientStatus.setSelection(currentItem.getRequesType().getCode());//setPromptId(currentItem.getRequesType().getCode());
+
         viewHolder.company.setAdapter(adapter);
 
         viewHolder.clientStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -203,9 +206,10 @@ public class CustomListAdapter extends BaseAdapter {
 
             //Creating the ArrayAdapter instance having the bank name list
             ArrayAdapter aa = new ArrayAdapter<Travel.RequestType>(context,android.R.layout.simple_spinner_item,enumR);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_item);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             clientStatus.setAdapter(aa);
+
         }
     }
     public String getPlace(Location location) {
