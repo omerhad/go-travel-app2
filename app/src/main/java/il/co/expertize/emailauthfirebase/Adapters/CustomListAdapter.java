@@ -157,10 +157,8 @@ public class CustomListAdapter extends BaseAdapter {
                 if(!company.get(viewHolder.company.getSelectedItem().toString())) {
                     company.put(viewHolder.company.getSelectedItem().toString(), true);
                     currentItem.setCompany(company);
-                   // fragmentsVM.updateTravel(currentItem);
-                    //listdata[position].setCompany(company);
                     currentItem.setCompany(company);
-                    Toast.makeText(context, "Data updated", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Thank you very much, the " +viewHolder.company.getSelectedItem().toString() +" company will contact you", Toast.LENGTH_LONG).show();
                 }
                 else
                     Toast.makeText(context, "company is already approved", Toast.LENGTH_LONG).show();
