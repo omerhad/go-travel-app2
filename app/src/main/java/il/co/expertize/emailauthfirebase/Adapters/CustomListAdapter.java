@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -148,11 +149,25 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HashMap<String, Boolean> company=new HashMap<>();
+                company = currentItem.getCompany();
+                if(!company.get(viewHolder.company.getSelectedItem().toString())) {
+                    company.put(viewHolder.company.getSelectedItem().toString(), true);
+                    currentItem.setCompany(company);
+                   // fragmentsVM.updateTravel(currentItem);
+                    //listdata[position].setCompany(company);
+                    currentItem.setCompany(company);
+                    Toast.makeText(context, "Data updated", Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(context, "company is already approved", Toast.LENGTH_LONG).show();
+
+
                 currentItem.setRequesType(Travel.RequestType.getType(numStatus));
                 viewModel.updateTravel(currentItem);
                 viewHolder.exp.clearComposingText();
                 viewHolder.exp.setText("your current status is:    " + currentItem.getRequesType().toStr(numStatus));
-                Toast.makeText(context, "The change saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "The status saved", Toast.LENGTH_LONG).show();
 
             }
         });

@@ -85,7 +85,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     Toast.makeText(NavigationDrawerActivity.this, "Data Not Inserted", Toast.LENGTH_LONG).show();
             }
         });
-//
+
 //
 //        //Insert Travels
 //        try {
@@ -132,7 +132,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 //        } catch (Exception e) {
 //            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
 //        }
-//
+
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
