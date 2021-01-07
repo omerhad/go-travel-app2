@@ -10,14 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import il.co.expertize.emailauthfirebase.Data.UserLocation;
-import il.co.expertize.emailauthfirebase.R;
-import il.co.expertize.emailauthfirebase.UI.Main.CompanyTravelsFragment;
-import il.co.expertize.emailauthfirebase.UI.Main.HistoryTravelsFragment;
-import il.co.expertize.emailauthfirebase.UI.Main.RegisteredTravelsFragment;
 
 @Entity (tableName = "travels")
 public class Travel {
@@ -45,6 +40,10 @@ public class Travel {
         this.travelLocation = travelLocation;
     }
 
+    public void setSourceLocation(UserLocation sourceLocation) {
+        this.sourceLocation = sourceLocation;
+    }
+
     public void setRequesType(RequestType requesType) {
         this.requesType= requesType;
     }
@@ -63,6 +62,12 @@ public class Travel {
 
     @TypeConverters(UserLocationConverter.class)
     private UserLocation travelLocation;
+
+    @TypeConverters(UserLocationConverter.class)
+    private UserLocation sourceLocation;
+
+
+
 
     @TypeConverters(RequestType.class)
     private RequestType requesType;
@@ -97,6 +102,8 @@ public class Travel {
     public UserLocation getTravelLocation() {
         return travelLocation;
     }
+
+    public UserLocation getSourceLocation() { return sourceLocation; }
 
     public RequestType getRequesType() {
         return requesType;

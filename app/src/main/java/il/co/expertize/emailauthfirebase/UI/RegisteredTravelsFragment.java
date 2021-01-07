@@ -1,4 +1,4 @@
-package il.co.expertize.emailauthfirebase.UI.Main;
+package il.co.expertize.emailauthfirebase.UI;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -84,46 +84,5 @@ public class RegisteredTravelsFragment extends Fragment {
                 itemsListView.setAdapter(adapter);
             }});
     }
-
-
-
-
-
-
-
-
-
-
-
-//
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-//                             @Nullable Bundle savedInstanceState) {
-//        mViewModel=new ViewModelProvider(this).get(MainViewModel.class);
-//
-//        View view= inflater.inflate(R.layout.registered_travels_fragment, container, false);
-//        return view;
-//        // Inflate the layout for this fragment
-//    }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        itemsListView  = (ListView)view.findViewById(R.id.list_register);
-//        //mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-//
-//        mViewModel.getAllTravels().observe(getViewLifecycleOwner(), new Observer<List<Travel>>() {
-//            @Override
-//            public void onChanged(List<Travel> travels) {
-//                ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
-//
-//                //create adapter object
-//                CustomListAdapter adapter = new CustomListAdapter(context, tmp);
-//
-//                //set custom adapter as adapter to our list view
-//                itemsListView.setAdapter(adapter);
-//            }});
-//    }
 
 }

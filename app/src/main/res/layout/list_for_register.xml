@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="horizontal" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/name"
@@ -63,25 +58,43 @@
 
                 <Spinner
                     android:id="@+id/status"
-                    android:layout_width="186dp"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:background="#F31818"
                     android:outlineAmbientShadowColor="#F31313"
                     android:outlineSpotShadowColor="#F10A0A"
                     android:textColor="#F11638"
                     />
-
-                <Button
-                    android:id="@+id/save_change"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_bottons"
-                    android:backgroundTint="#F2F2F2"
-                    android:padding="10dp"
-                    android:text="Save Change"
-                    android:textAllCaps="false"
-                    android:textColor="#1B219F" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/save_company"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/round_bottons"
+                            android:backgroundTint="#F2F2F2"
+                            android:padding="10dp"
+                            android:text="Approve Company"
+                            android:textAllCaps="false"
+                            android:textColor="#1B219F" />
+
+                        <Button
+                            android:id="@+id/save_status"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/round_bottons"
+                            android:backgroundTint="#F2F2F2"
+                            android:padding="10dp"
+                            android:text="Save Status"
+                            android:textAllCaps="false"
+                            android:textColor="#1B219F" />
+                </LinearLayout>
+<!--        </LinearLayout>-->
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package il.co.expertize.emailauthfirebase.UI.Main;
+package il.co.expertize.emailauthfirebase.UI;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

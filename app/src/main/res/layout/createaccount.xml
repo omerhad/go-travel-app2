@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/newcolor"
-    tools:context=".UI.Main.CreateAccount">
+    tools:context=".UI.CreateAccount">
 
 
     <TextView

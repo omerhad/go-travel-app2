@@ -1,6 +1,6 @@
 
 
-package il.co.expertize.emailauthfirebase.UI.Main;
+package il.co.expertize.emailauthfirebase.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

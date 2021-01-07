@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/newcolor"
-    tools:context=".UI.Main.LoginActivity">
+    tools:context=".UI.LoginActivity">
 
     <TextView
         android:layout_width="wrap_content"

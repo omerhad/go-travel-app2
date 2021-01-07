@@ -1,4 +1,4 @@
-package il.co.expertize.emailauthfirebase.UI.Main;
+package il.co.expertize.emailauthfirebase.UI;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -10,11 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +23,6 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,10 +37,6 @@ import il.co.expertize.emailauthfirebase.Data.UserLocation;
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
-import il.co.expertize.emailauthfirebase.UI.Main.CompanyTravelsFragment;
-import il.co.expertize.emailauthfirebase.UI.Main.HistoryTravelsFragment;
-import il.co.expertize.emailauthfirebase.UI.Main.LoginActivity;
-import il.co.expertize.emailauthfirebase.UI.Main.RegisteredTravelsFragment;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
@@ -85,7 +78,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                     Toast.makeText(NavigationDrawerActivity.this, "Data Not Inserted", Toast.LENGTH_LONG).show();
             }
         });
-
+//
 //
 //        //Insert Travels
 //        try {
@@ -102,6 +95,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 //            travel1.setClientPhone("026456677");
 //            travel1.setClientEmail("elyasaf007@gmail.com");
 //            travel1.setTravelLocation(new UserLocation(31.7650581, 35.191158099999996));
+//            travel1.setSourceLocation(new UserLocation(31.7650581, 35.191158099999996));
 //            travel1.setTravelDate(tDate);
 //            travel1.setArrivalDate(tDate2);
 //            travel1.setRequesType(Travel.RequestType.sent);
@@ -132,7 +126,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 //        } catch (Exception e) {
 //            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
 //        }
-
+//
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override

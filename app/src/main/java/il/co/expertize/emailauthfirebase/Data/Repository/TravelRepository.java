@@ -1,7 +1,9 @@
-package il.co.expertize.emailauthfirebase.Repository;
+package il.co.expertize.emailauthfirebase.Data.Repository;
 
 
 import android.app.Application;
+import android.location.Location;
+import android.location.LocationManager;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -27,7 +29,8 @@ public class TravelRepository implements ITravelRepository {
     List<Travel> travelList2=new LinkedList<Travel>();
 
 
-    private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Travel>> mutableLiveDataRegistered = new MutableLiveData<>();
+    private MutableLiveData<List<Travel>> mutableLiveDataCompany = new MutableLiveData<>();
 
 
 
@@ -77,9 +80,38 @@ public class TravelRepository implements ITravelRepository {
                 travelList2.add(travel);
         }
         //travelList=travelList2;
-        mutableLiveData.setValue(travelList2);
-        return mutableLiveData;
+        mutableLiveDataRegistered.setValue(travelList2);
+        return mutableLiveDataRegistered;
     }
+
+
+
+    public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes) {
+
+        LinkedList<Travel> companyTravels = new LinkedList<Travel>();
+        for (Travel travel : travelList) {
+            if (travel.getRequesType().toString().equals(Travel.RequestType.sent) || travel.getRequesType().toString().equals(Travel.RequestType.accepted)) {
+                Location temp = new Location(LocationManager.GPS_PROVIDER);
+                temp.setLatitude(lat);
+                temp.setLongitude(lon);
+
+                Location temp1 = new Location(LocationManager.GPS_PROVIDER);
+                temp1.setLatitude(travel.getSourceLocation().getLat());
+                temp1.setLongitude(travel.getSourceLocation().getLon());
+
+                double  distance= temp.distanceTo(temp1);
+                //     Toast.makeText(this.application.getApplicationContext(), " dis is :" + distance, Toast.LENGTH_LONG).show();
+                if(distance<maxDes)
+                    companyTravels.add(travel);
+
+            }
+        }
+        mutableLiveDataCompany.setValue(companyTravels);
+        return mutableLiveDataCompany;
+    }
+
+
+
 
 
     @Override
@@ -90,5 +122,9 @@ public class TravelRepository implements ITravelRepository {
     @Override
     public void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l) {
         notifyToTravelListListenerRepository = l;
+    }
+    @Override
+    public String emailOfUser(){
+        return user.getEmail();
     }
 }

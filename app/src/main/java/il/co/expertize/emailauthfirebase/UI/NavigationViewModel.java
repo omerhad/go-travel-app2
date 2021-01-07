@@ -1,4 +1,4 @@
-package il.co.expertize.emailauthfirebase.UI.Main;
+package il.co.expertize.emailauthfirebase.UI;
 
 
 import android.app.Application;
@@ -10,8 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
-import il.co.expertize.emailauthfirebase.Repository.ITravelRepository;
-import il.co.expertize.emailauthfirebase.Repository.TravelRepository;
+import il.co.expertize.emailauthfirebase.Data.Repository.ITravelRepository;
+import il.co.expertize.emailauthfirebase.Data.Repository.TravelRepository;
 
 public class NavigationViewModel extends AndroidViewModel {
     ITravelRepository repository;
@@ -38,31 +38,19 @@ public class NavigationViewModel extends AndroidViewModel {
     {
         repository.updateTravel(travel);
     }
-    MutableLiveData<List<Travel>> getAllTravels()
+    public MutableLiveData<List<Travel>> getAllTravels()
     {
         return mutableLiveData;
     }
+    public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes){return mutableLiveData;}
     MutableLiveData<Boolean> getIsSuccess()
     {
         return repository.getIsSuccess();
     }
+    public String emailOfUser(){
+        return repository.emailOfUser();
+    }
 
-//    void addTravel(Travel travel)
-//    {
-//        repository.addTravel(travel);
-//    }
-//    void updateTravel(Travel travel)
-//    {
-//        repository.updateTravel(travel);
-//    }
-//    MutableLiveData<List<Travel>> getAllTravels()
-//    {
-//        return (MutableLiveData<List<Travel>>)repository.getAllTravels();
-//    }
-//    MutableLiveData<Boolean> getIsSuccess()
-//    {
-//        return repository.getIsSuccess();
-//    }
 
 
 }

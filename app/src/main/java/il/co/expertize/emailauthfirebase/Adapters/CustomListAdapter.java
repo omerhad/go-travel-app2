@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +26,14 @@ import androidx.lifecycle.ViewModelProviders;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.R;
-import il.co.expertize.emailauthfirebase.UI.Main.NavigationViewModel;
+import il.co.expertize.emailauthfirebase.UI.NavigationViewModel;
+import il.co.expertize.emailauthfirebase.Util.Gps;
 
 
 /**
@@ -42,6 +41,7 @@ import il.co.expertize.emailauthfirebase.UI.Main.NavigationViewModel;
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class CustomListAdapter extends BaseAdapter {
+    private Gps gps=new Gps();
     private Context context;
     private ArrayList<Travel> items;
     private Location location;
@@ -73,36 +73,6 @@ public class CustomListAdapter extends BaseAdapter {
         return position;
     }
 
-/*
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // inflate the layout for each list row
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).
-                inflate(R.layout.layout_list_view_row_items, parent, false);
-        }
-
-        // get current item to be displayed
-        Item currentItem = (Item) getItem(position);
-
-        // get the TextView for item name and item description
-        TextView textViewItemName = (TextView)
-            convertView.findViewById(R.id.text_view_item_name);
-        TextView textViewItemDescription = (TextView)
-            convertView.findViewById(R.id.text_view_item_description);
-
-        //sets the text for item name and item description from the current item object
-        textViewItemName.setText(currentItem.getItemName());
-        textViewItemDescription.setText(currentItem.getItemDescription());
-
-        // returns the view for the current row
-        return convertView;
-    }
-
-*/
-
-
-
 
     @SuppressLint("ResourceType")
     @Override
@@ -113,7 +83,7 @@ public class CustomListAdapter extends BaseAdapter {
         location.setLongitude(items.get(position).getTravelLocation().getLon());
 
         String strLocation="";
-        strLocation =getPlace(location);
+        strLocation =gps.getPlace(location,context);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_for_register, parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -150,8 +120,7 @@ public class CustomListAdapter extends BaseAdapter {
 
             }
         });
-
-        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+        viewHolder.buttonCompany.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HashMap<String, Boolean> company=new HashMap<>();
@@ -160,11 +129,17 @@ public class CustomListAdapter extends BaseAdapter {
                     company.put(viewHolder.company.getSelectedItem().toString(), true);
                     currentItem.setCompany(company);
                     currentItem.setCompany(company);
-                    Toast.makeText(context, "Thank you very much, the " +viewHolder.company.getSelectedItem().toString() +" company will contact you", Toast.LENGTH_LONG).show();
+                    viewModel.updateTravel(currentItem);
+                    Toast.makeText(context, "Thank you very much, the    " +viewHolder.company.getSelectedItem().toString() +"    company will contact you", Toast.LENGTH_LONG).show();
                 }
                 else
                     Toast.makeText(context, "company is already approved", Toast.LENGTH_LONG).show();
+            }
+        });
 
+        viewHolder.buttonStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
                 currentItem.setRequesType(Travel.RequestType.getType(numStatus));
                 viewModel.updateTravel(currentItem);
@@ -189,7 +164,8 @@ public class CustomListAdapter extends BaseAdapter {
         TextView exp;
         Spinner clientStatus;
         Spinner company;
-        Button button;
+        Button buttonStatus;
+        Button buttonCompany;
 
 
         public ViewHolder(View view) {
@@ -200,7 +176,8 @@ public class CustomListAdapter extends BaseAdapter {
             clientStatus = (Spinner)view.findViewById(R.id.status);
             exp = (TextView) view.findViewById(R.id.explain_in_status);
             company = (Spinner)view.findViewById(R.id.company);
-            button=(Button) view.findViewById(R.id.save_change);
+            buttonStatus=(Button) view.findViewById(R.id.save_status);
+            buttonCompany=(Button) view.findViewById(R.id.save_company);
             Travel.RequestType[] enumR;
             enumR=new Travel.RequestType[]{Travel.RequestType.accepted, Travel.RequestType.run, Travel.RequestType.close};
 
@@ -212,33 +189,33 @@ public class CustomListAdapter extends BaseAdapter {
 
         }
     }
-    public String getPlace(Location location) {
-        String cityName="" ;
-        String stateName="";
-        String countryName="";
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
-
-            if (addresses.size() > 0) {
-                cityName = addresses.get(0).getAddressLine(0);
-                if (addresses.size() > 1)
-                    stateName = addresses.get(0).getAddressLine(1);
-                if (addresses.size() > 2)
-                    countryName = addresses.get(0).getAddressLine(2);
-                return stateName + " " + cityName + " " + countryName;
-            }
-
-            return "no place: \n ("+location.getLongitude()+" , "+location.getLatitude()+")";
-        }
-        catch(
-                IOException e)
-
-        {
-            e.printStackTrace();
-        }
-        return "IOException ...";
-    }
+//    public String getPlace(Location location) {
+//        String cityName="" ;
+//        String stateName="";
+//        String countryName="";
+//        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+//        List<Address> addresses = null;
+//        try {
+//            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+//
+//
+//            if (addresses.size() > 0) {
+//                cityName = addresses.get(0).getAddressLine(0);
+//                if (addresses.size() > 1)
+//                    stateName = addresses.get(0).getAddressLine(1);
+//                if (addresses.size() > 2)
+//                    countryName = addresses.get(0).getAddressLine(2);
+//                return stateName + " " + cityName + " " + countryName;
+//            }
+//
+//            return "no place: \n ("+location.getLongitude()+" , "+location.getLatitude()+")";
+//        }
+//        catch(
+//                IOException e)
+//
+//        {
+//            e.printStackTrace();
+//        }
+//        return "IOException ...";
+//    }
 }

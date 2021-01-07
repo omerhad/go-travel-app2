@@ -4,26 +4,17 @@
  * URL 2: https://github.com/buildbro/FirebaseEmailPasswordExample
  */
 
-package il.co.expertize.emailauthfirebase.UI.Main;
+package il.co.expertize.emailauthfirebase.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
-import il.co.expertize.emailauthfirebase.Data.UserLocation;
-import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.R;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private String travelDate;
