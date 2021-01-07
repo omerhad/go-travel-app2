@@ -146,7 +146,7 @@ public class Travel {
 
 
     public enum RequestType {
-        sent(2), accepted(3), run(1), close(0), paid(4);
+        sent(3), accepted(0), run(1), close(2), paid(4);
         private final Integer code;
         RequestType(Integer value) {
             this.code = value;
@@ -172,13 +172,13 @@ public class Travel {
        public String toStr(int a) {
            switch (a) {
                case 0:
-                   return "close";
+                   return "accepted";
                case 1:
                    return "run";
                case 2:
-                   return "sent";
+                   return "close";
                case 3:
-                   return "accepted";
+                   return "sent";
                case 4:
                    return "paid";
                default:

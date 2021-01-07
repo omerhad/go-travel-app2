@@ -132,7 +132,9 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolder.clientDate2.setText("Arrivad Date:      "+format.format(currentItem.getArrivalDate()));
         ArrayAdapter<String> adapter= new ArrayAdapter<> (context ,android.R.layout.simple_spinner_item, new ArrayList<String>( currentItem.getCompany().keySet()) )  ;
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        viewHolder.clientStatus.setSelection(currentItem.getRequesType().getCode());//setPromptId(currentItem.getRequesType().getCode());
+
+        if (currentItem.getRequesType().getCode()!= 3)
+        viewHolder.clientStatus.setSelection(currentItem.getRequesType().getCode());
 
         viewHolder.company.setAdapter(adapter);
 
@@ -200,7 +202,7 @@ public class CustomListAdapter extends BaseAdapter {
             company = (Spinner)view.findViewById(R.id.company);
             button=(Button) view.findViewById(R.id.save_change);
             Travel.RequestType[] enumR;
-            enumR=new Travel.RequestType[]{Travel.RequestType.close, Travel.RequestType.run, Travel.RequestType.sent};
+            enumR=new Travel.RequestType[]{Travel.RequestType.accepted, Travel.RequestType.run, Travel.RequestType.close};
 
             //Creating the ArrayAdapter instance having the bank name list
             ArrayAdapter aa = new ArrayAdapter<Travel.RequestType>(context,android.R.layout.simple_spinner_item,enumR);
