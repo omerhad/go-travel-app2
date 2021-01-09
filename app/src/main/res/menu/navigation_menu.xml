@@ -23,8 +23,8 @@
         <menu>
             <item
                 android:id="@+id/exit"
-                android:icon="@drawable/exit"
-                android:title="Exit"/>
+                android:icon="@drawable/logout"
+                android:title="log out"/>
 
         </menu>
     </item>

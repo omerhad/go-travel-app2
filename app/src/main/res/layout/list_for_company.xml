@@ -58,18 +58,20 @@
         android:orientation="horizontal"
         >
 
-        <Button
+        <ImageButton
             android:id="@+id/button_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#132098"
-            android:text="Call" />
+            android:text="Call"
+            android:src="@drawable/phone"/>
 
         <Button
             android:id="@+id/button_accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#132098"
+            android:background="@drawable/round_bottons"
             android:text="Accept" />
 
         <CheckBox

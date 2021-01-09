@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -191,7 +192,7 @@ public class CompanyAdapter extends BaseAdapter {
         TextView clientSource;
         CheckBox Approve;
         Button buttonAccepted;
-        Button buttonCall;
+        ImageButton buttonCall;
 
 
         public ViewHolder(View view) {
@@ -202,7 +203,7 @@ public class CompanyAdapter extends BaseAdapter {
             clientNumOfDay = (TextView) view.findViewById(R.id.num_of_day);
             Approve = (CheckBox) view.findViewById(R.id.checkBox_approve);
             buttonAccepted=(Button) view.findViewById(R.id.button_accept);
-            buttonCall=(Button) view.findViewById(R.id.button_call);
+            buttonCall=(ImageButton) view.findViewById(R.id.button_call);
 
         }
     }
