@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -48,6 +50,7 @@ public class CompanyAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Travel> items;
     private Location location;
+    private Location location2;
     private NavigationViewModel viewModel;
     Boolean bul=false;
     private int numStatus;
@@ -87,14 +90,16 @@ public class CompanyAdapter extends BaseAdapter {
         String strDest="";
         String strSrc="";
         location = new Location(LocationManager.GPS_PROVIDER);
+        location2 = new Location(LocationManager.GPS_PROVIDER);
 
         location.setLatitude(items.get(position).getTravelLocation().getLat());
         location.setLongitude(items.get(position).getTravelLocation().getLon());
         strDest =gps.getPlace(location,context);
 
-        location.setLatitude(items.get(position).getSourceLocation().getLat());
-        location.setLongitude(items.get(position).getSourceLocation().getLon());
-        strSrc =gps.getPlace(location,context);
+
+        location2.setLatitude(items.get(position).getSourceLocation().getLat());
+        location2.setLongitude(items.get(position).getSourceLocation().getLon());
+        strSrc =gps.getPlace(location2,context);
 
 
         if (convertView == null) {
@@ -108,14 +113,16 @@ public class CompanyAdapter extends BaseAdapter {
         Travel currentItem = (Travel) getItem(position);
 
 
-        LocalDate d1 = LocalDate.parse(format.format(currentItem.getTravelDate()), DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDate d2 = LocalDate.parse(format.format(currentItem.getArrivalDate()), DateTimeFormatter.ISO_LOCAL_DATE);
-        Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
-        long diffDays = diff.toDays();
+//        LocalDate d1 = LocalDate.parse(format.format(currentItem.getTravelDate()), DateTimeFormatter.ISO_LOCAL_DATE);
+//        LocalDate d2 = LocalDate.parse(format.format(currentItem.getArrivalDate()), DateTimeFormatter.ISO_LOCAL_DATE);
+//        Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+//        long diffDays = diff.toDays();
+        long diffDays = currentItem.getTravelDate().getTime()-currentItem.getArrivalDate().getTime();
 
 
 
-        viewHolder.clientName.setText(currentItem.getClientName());
+
+        viewHolder.clientName.setText("name of costumer:    "+currentItem.getClientName());
         viewHolder.clientDestination.setText("destination:      " + strDest);
         viewHolder.clientSource.setText("source:      " + strSrc);
         viewHolder.clientStartDate.setText("start Date:      "+format.format(currentItem.getTravelDate()));
@@ -160,9 +167,9 @@ public class CompanyAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse(currentItem.getClientPhone()));
+                callIntent.setData(Uri.parse("tel:"+ currentItem.getClientPhone()));
 
-                if (ActivityCompat.checkSelfPermission(viewModelStore,
+                if (ActivityCompat.checkSelfPermission(context,
                         Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }

@@ -70,14 +70,14 @@ public class CompanyTravelsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        itemsListView = (ListView) view.findViewById(R.id.list_register);
+        itemsListView = (ListView) view.findViewById(R.id.list_company);
 
         mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
 
         locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
 
 
-        mViewModel.findOpenTravelList(1,2,3).observe(this, new Observer<List<Travel>>() {
+        mViewModel.findOpenTravelList(1,2,100).observe(this, new Observer<List<Travel>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<Travel> travels) {

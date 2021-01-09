@@ -133,7 +133,9 @@ public class Gps extends Activity {
 
 
     public String getPlace(Location location, Context context) {
-
+        String cityName="" ;
+        String stateName="";
+        String countryName="";
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
         try {
@@ -141,10 +143,12 @@ public class Gps extends Activity {
 
 
             if (addresses.size() > 0) {
-                String cityName = addresses.get(0).getAddressLine(0);
-                String stateName = addresses.get(0).getAddressLine(1);
-                String countryName = addresses.get(0).getAddressLine(2);
-                return stateName + "\n" + cityName + "\n" + countryName;
+                cityName = addresses.get(0).getAddressLine(0);
+                if (addresses.size() > 1)
+                    stateName = addresses.get(0).getAddressLine(1);
+                if (addresses.size() > 2)
+                    countryName = addresses.get(0).getAddressLine(2);
+                return stateName + " " + cityName + " " + countryName;
             }
 
             return "no place: \n ("+location.getLongitude()+" , "+location.getLatitude()+")";
