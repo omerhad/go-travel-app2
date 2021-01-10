@@ -28,7 +28,7 @@ public class TravelRepository implements ITravelRepository {
     public FirebaseAuth mAuth;
     private IHistoryDataSource historyDataSource;
     private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository;
-    List<Travel> travelList;
+    List<Travel> travelListHis;
     List<Travel> travelList2;
 
 
@@ -48,6 +48,7 @@ public class TravelRepository implements ITravelRepository {
     private TravelRepository(Application application) {
         travelList2=new LinkedList<Travel>();
         travelHistory=new LinkedList<Travel>();
+        travelListHis =new LinkedList<>();
         travelDataSource = TravelFirebaseDataSource.getInstance();
         historyDataSource = new HistoryDataSource(application.getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
@@ -55,19 +56,16 @@ public class TravelRepository implements ITravelRepository {
         ITravelDataSource.NotifyToTravelListListener notifyToTravelListListener = new ITravelDataSource.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-                 travelList = travelDataSource.getAllTravels();
+//                 travelListReg = travelDataSource.getAllTravels();
+//                 travelListComp = travelDataSource.findOpenTravelList();
+//                 travelListHis = travelDataSource.getAllCloseTravelList();
 
                 if (notifyToTravelListListenerRepository != null)
                     notifyToTravelListListenerRepository.onTravelsChanged();
 
 
-                for (Travel travel:travelList) {
-                    if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)){
-                        travelHistory.add(travel);
-                    }
-                }
                 historyDataSource.clearTable();
-                historyDataSource.addTravel(travelHistory);
+                historyDataSource.addTravel(travelListHis);
             }
         };
 
@@ -88,7 +86,7 @@ public class TravelRepository implements ITravelRepository {
     public  MutableLiveData<List<Travel>> getAllTravels() {
         travelList2.clear();
        // String strEmail=user.getEmail();
-        for (Travel travel:travelList) {
+        for (Travel travel:travelDataSource.getAllTravels()) {
             if (travel.getClientEmail().equals(user.getEmail()) && !(travel.getRequesType().equals(Travel.RequestType.close)))
                 travelList2.add(travel);
         }
@@ -99,22 +97,35 @@ public class TravelRepository implements ITravelRepository {
 
 
 
-    public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes) {
+//    public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes) {
+//
+//        LinkedList<Travel> companyTravels = new LinkedList<Travel>();
+//        for (Travel travel : travelListComp) {
+//            if (travel.getRequesType().toString().equals(Travel.RequestType.sent) || travel.getRequesType().toString().equals(Travel.RequestType.accepted)) {
+//                Location temp = new Location(LocationManager.GPS_PROVIDER);
+//                temp.setLatitude(lat);
+//                temp.setLongitude(lon);
+//
+//                Location temp1 = new Location(LocationManager.GPS_PROVIDER);
+//                temp1.setLatitude(travel.getSourceLocation().getLat());
+//                temp1.setLongitude(travel.getSourceLocation().getLon());
+//
+//                double  distance= temp.distanceTo(temp1);
+//                //     Toast.makeText(this.application.getApplicationContext(), " dis is :" + distance, Toast.LENGTH_LONG).show();
+//                if(distance<maxDes)
+//                    companyTravels.add(travel);
+//
+//            }
+//        }
+//        mutableLiveDataCompany.setValue(companyTravels);
+//        return mutableLiveDataCompany;
+//    }
+    @Override
+    public MutableLiveData<List<Travel>> findOpenTravelList() {
 
         LinkedList<Travel> companyTravels = new LinkedList<Travel>();
-        for (Travel travel : travelList) {
-            if (travel.getRequesType().toString().equals(Travel.RequestType.sent) || travel.getRequesType().toString().equals(Travel.RequestType.accepted)) {
-                Location temp = new Location(LocationManager.GPS_PROVIDER);
-                temp.setLatitude(lat);
-                temp.setLongitude(lon);
-
-                Location temp1 = new Location(LocationManager.GPS_PROVIDER);
-                temp1.setLatitude(travel.getSourceLocation().getLat());
-                temp1.setLongitude(travel.getSourceLocation().getLon());
-
-                double  distance= temp.distanceTo(temp1);
-                //     Toast.makeText(this.application.getApplicationContext(), " dis is :" + distance, Toast.LENGTH_LONG).show();
-                if(distance<maxDes)
+        for (Travel travel : travelDataSource.findOpenTravelList()) {
+            if (travel.getRequesType().equals(Travel.RequestType.sent) || travel.getRequesType().equals(Travel.RequestType.accepted)) {
                     companyTravels.add(travel);
 
             }
@@ -122,22 +133,33 @@ public class TravelRepository implements ITravelRepository {
         mutableLiveDataCompany.setValue(companyTravels);
         return mutableLiveDataCompany;
     }
+//    @Override
+//    public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start,Date end) {
+//        LinkedList<Travel> historyTravels = new LinkedList<Travel>();
+//        for (Travel travel:travelDataSource.getAllCloseTravelList()) {
+//            if(travel.getArrivalDate().after(start) && travel.getTravelDate().before(end)) {
+//                if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)) {
+//                    historyTravels.add(travel);
+//                }
+//            }
+//
+//        }
+//        mutableLiveDataHistory.setValue(historyTravels);
+//        return mutableLiveDataHistory;
+//    }
 
-
-
-    public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start,Date end) {
+    @Override
+    public MutableLiveData<List<Travel>> getAllCloseTravelList() {
         LinkedList<Travel> historyTravels = new LinkedList<Travel>();
-        for (Travel travel:travelHistory) {
-            if(travel.getArrivalDate().after(start) && travel.getTravelDate().before(end)) {
+        for (Travel travel:travelDataSource.getAllCloseTravelList()) {
                 if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)) {
                     historyTravels.add(travel);
                 }
             }
-
-        }
         mutableLiveDataHistory.setValue(historyTravels);
         return mutableLiveDataHistory;
     }
+
 
 
     @Override

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Adapters.CustomListAdapter;
@@ -83,18 +84,27 @@ public class HistoryTravelsFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
 
-        mViewModel.getAllCloseTravelList(start,end).observe(this, new Observer<List<Travel>>() {
+        mViewModel.getAllCloseTravelList().observe(this, new Observer<List<Travel>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<Travel> travels) {
                 ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
-
+                ArrayList<Travel> res=getAllCloseTravelList(start,end,tmp);
                 //create adapter object
-                HistoryAdapter adapter = new HistoryAdapter(context, tmp,requireActivity());
+                HistoryAdapter adapter = new HistoryAdapter(context, res,requireActivity());
 
                 //set custom adapter as adapter to our list view
                 itemsListView.setAdapter(adapter);
             }});
     }
 
+    public  ArrayList<Travel> getAllCloseTravelList(Date start,Date end, ArrayList<Travel> temp) {
+        ArrayList<Travel> historyTravels = new  ArrayList<Travel>();
+        for (Travel travel:temp) {
+            if(travel.getArrivalDate().after(start) && travel.getTravelDate().before(end)) {
+                    historyTravels.add(travel);
+            }
+        }
+        return historyTravels;
+    }
 }

@@ -3,6 +3,7 @@ package il.co.expertize.emailauthfirebase.UI;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,6 +30,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Adapters.CompanyAdapter;
@@ -54,6 +56,7 @@ public class CompanyTravelsFragment extends Fragment implements LocationListener
     Gps gps;
     double lat=0;
     double lon=0;
+    int maxDes=100;
 
     public static RegisteredTravelsFragment newInstance() {
         return new RegisteredTravelsFragment();
@@ -79,7 +82,7 @@ public class CompanyTravelsFragment extends Fragment implements LocationListener
         }
 
         locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
-
+//        location=locationManager.getCurrentLocation();
         return view;
 
     }
@@ -95,20 +98,42 @@ public class CompanyTravelsFragment extends Fragment implements LocationListener
 
 
 
-        mViewModel.findOpenTravelList(lat,lon,100).observe(this, new Observer<List<Travel>>() {
+        mViewModel.findOpenTravelList().observe(this, new Observer<List<Travel>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<Travel> travels) {
                 ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
-
+                ArrayList<Travel> tmp2  = findOpenTravelList(31.7650581, 35.191158099999996,100000,tmp);
                 //create adapter object
-                CompanyAdapter adapter = new CompanyAdapter(context, tmp, requireActivity());
+                CompanyAdapter adapter = new CompanyAdapter(context, tmp2, requireActivity());
 
                 //set custom adapter as adapter to our list view
                 itemsListView.setAdapter(adapter);
             }
         });
 
+    }
+
+
+    public ArrayList<Travel> findOpenTravelList(double lat, double lon, int maxDes,ArrayList<Travel> tmper) {
+
+        ArrayList<Travel> companyTravels = new ArrayList<Travel>();
+        for (Travel travel : tmper) {
+                Location temp = new Location(LocationManager.GPS_PROVIDER);
+                temp.setLatitude(travel.getSourceLocation().getLat());
+                temp.setLongitude(travel.getSourceLocation().getLon());
+
+                Location temp1 = new Location(LocationManager.GPS_PROVIDER);
+                temp1.setLatitude(lat);
+                temp1.setLongitude(lon);
+
+                double  distance= temp.distanceTo(temp1);
+                //     Toast.makeText(this.application.getApplicationContext(), " dis is :" + distance, Toast.LENGTH_LONG).show();
+                if(distance<maxDes)
+                    companyTravels.add(travel);
+
+            }
+        return companyTravels;
     }
 
     @Override

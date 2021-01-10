@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
@@ -121,6 +122,22 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
         return allTravelsList;
     }
 
+//    @Override
+//    public List<Travel> findOpenTravelList(double lat, double lon, int maxDes) {
+//        return allTravelsList;
+//    }
+    @Override
+    public List<Travel> findOpenTravelList() {
+        return allTravelsList;
+    }
+//    @Override
+//    public List<Travel> getAllCloseTravelList(Date start, Date end) {
+//        return allTravelsList;
+//    }
+    @Override
+    public List<Travel> getAllCloseTravelList() {
+        return allTravelsList;
+    }
     public MutableLiveData<Boolean> getIsSuccess() {
         return isSuccess;
     }

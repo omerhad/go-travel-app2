@@ -16,7 +16,9 @@ import il.co.expertize.emailauthfirebase.Data.Repository.TravelRepository;
 
 public class NavigationViewModel extends AndroidViewModel {
     ITravelRepository repository;
-    private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Travel>> mutableLiveDataReg = new MutableLiveData<>();
+    private MutableLiveData<List<Travel>> mutableLiveDataComp = new MutableLiveData<>();
+    private MutableLiveData<List<Travel>> mutableLiveDataHis = new MutableLiveData<>();
     public NavigationViewModel(Application p) {
         super(p);
 
@@ -25,8 +27,12 @@ public class NavigationViewModel extends AndroidViewModel {
         ITravelRepository.NotifyToTravelListListener notifyToTravelListListener = new ITravelRepository.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-                List<Travel> travelList =repository.getAllTravels().getValue();
-                mutableLiveData.setValue(travelList);
+                List<Travel> travelListReg =repository.getAllTravels().getValue();
+                mutableLiveDataReg.setValue(travelListReg);
+                List<Travel> travelListComp =repository.findOpenTravelList().getValue();
+                mutableLiveDataComp.setValue(travelListComp);
+                List<Travel> travelListHis =repository.getAllCloseTravelList().getValue();
+                mutableLiveDataHis.setValue(travelListHis);
             }
         };
         repository.setNotifyToTravelListListener(notifyToTravelListListener);
@@ -41,10 +47,12 @@ public class NavigationViewModel extends AndroidViewModel {
     }
     public MutableLiveData<List<Travel>> getAllTravels()
     {
-        return mutableLiveData;
+        return mutableLiveDataReg;
     }
-    public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes){return mutableLiveData;}
-    public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start, Date end){return mutableLiveData;}
+    //public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes){return mutableLiveDataComp;}
+    public MutableLiveData<List<Travel>> findOpenTravelList(){return mutableLiveDataComp;}
+   // public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start, Date end){return mutableLiveDataHis;}
+    public MutableLiveData<List<Travel>> getAllCloseTravelList(){return mutableLiveDataHis;}
     MutableLiveData<Boolean> getIsSuccess()
     {
         return repository.getIsSuccess();
