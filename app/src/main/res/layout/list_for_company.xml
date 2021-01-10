@@ -60,25 +60,30 @@
 
         <ImageButton
             android:id="@+id/button_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#132098"
+            android:layout_width="104dp"
+            android:layout_height="73dp"
+            android:src="@drawable/phone"
             android:text="Call"
-            android:src="@drawable/phone"/>
+            android:textColor="#F6080F" />
 
         <Button
             android:id="@+id/button_accept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#132098"
+            android:layout_width="109dp"
+            android:layout_height="61dp"
             android:background="@drawable/round_bottons"
-            android:text="Accept" />
+            android:backgroundTint="#F2F2F2"
+            android:padding="10dp"
+            android:text="Accept"
+            android:textAllCaps="false"
+            android:textColor="#F6080F" />
 
         <CheckBox
             android:id="@+id/checkBox_approve"
-            android:layout_width="64dp"
-            android:layout_height="42dp"
-            android:textColor="#132098"
-            />
+            android:layout_width="63dp"
+            android:layout_height="match_parent"
+            android:rotation="1"
+            android:scaleX="1.00"
+            android:scaleY="1.00"
+            android:textColor="#F6080F" />
     </LinearLayout>
 </LinearLayout>

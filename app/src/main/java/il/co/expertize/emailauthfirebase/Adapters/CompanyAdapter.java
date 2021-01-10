@@ -118,7 +118,7 @@ public class CompanyAdapter extends BaseAdapter {
 //        LocalDate d2 = LocalDate.parse(format.format(currentItem.getArrivalDate()), DateTimeFormatter.ISO_LOCAL_DATE);
 //        Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
 //        long diffDays = diff.toDays();
-        long diffDays = currentItem.getTravelDate().getTime()-currentItem.getArrivalDate().getTime();
+          long diffDays = currentItem.getTravelDate().getTime()-currentItem.getArrivalDate().getTime();
 
 
 
@@ -128,27 +128,28 @@ public class CompanyAdapter extends BaseAdapter {
         viewHolder.clientSource.setText("source:      " + strSrc);
         viewHolder.clientStartDate.setText("start Date:      "+format.format(currentItem.getTravelDate()));
         viewHolder.clientNumOfDay.setText("num of days:      "+diffDays);
-
+        viewHolder.Approve.setEnabled(false);
         String companyName =  viewModel.emailOfUser().split("@")[0];
 
-
+        bul=false;
         for (String str:currentItem.getCompany().keySet()) {
             String strCurrent = str;
-            if (strCurrent==companyName){
+            if (strCurrent.equals(companyName)){
                 bul=true;
             }
         }
 
 
       if (bul){
-          if (currentItem.getCompany().get(companyName)){
-          viewHolder.Approve.setEnabled(true);
-          viewHolder.Approve.setVisibility(0);
+          Boolean tmp=currentItem.getCompany().get(companyName).booleanValue();
+          if (tmp){
+          viewHolder.Approve.setChecked(true);
+          viewHolder.buttonAccepted.setEnabled(false);
                }
       }
       else
-          viewHolder.Approve.setEnabled(true);
-          viewHolder.Approve.setVisibility(6);
+            viewHolder.buttonCall.setEnabled(false);
+
 
 
         viewHolder.buttonAccepted.setOnClickListener(new View.OnClickListener() {
