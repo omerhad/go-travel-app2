@@ -144,7 +144,6 @@ public class CompanyAdapter extends BaseAdapter {
           Boolean tmp=currentItem.getCompany().get(companyName).booleanValue();
           if (tmp){
           viewHolder.Approve.setChecked(true);
-          viewHolder.buttonAccepted.setVisibility(0);
                }
       }
       else
