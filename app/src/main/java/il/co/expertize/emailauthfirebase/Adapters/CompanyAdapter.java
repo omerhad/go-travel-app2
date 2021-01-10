@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.R;
@@ -118,7 +119,9 @@ public class CompanyAdapter extends BaseAdapter {
 //        LocalDate d2 = LocalDate.parse(format.format(currentItem.getArrivalDate()), DateTimeFormatter.ISO_LOCAL_DATE);
 //        Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
 //        long diffDays = diff.toDays();
-          long diffDays = currentItem.getTravelDate().getTime()-currentItem.getArrivalDate().getTime();
+        long diffInMillies = Math.abs( currentItem.getTravelDate().getTime() - currentItem.getArrivalDate().getTime());
+        long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        //  long diffDays = currentItem.getTravelDate().getDay()-currentItem.getArrivalDate().getDay();
 
 
 
@@ -139,16 +142,18 @@ public class CompanyAdapter extends BaseAdapter {
             }
         }
 
-
+        viewHolder.Approve.setChecked(false);
       if (bul){
           Boolean tmp=currentItem.getCompany().get(companyName).booleanValue();
           if (tmp){
           viewHolder.Approve.setChecked(true);
+          viewHolder.buttonAccepted.setEnabled(false);
                }
+     //     else viewHolder.Approve.setChecked(true);
       }
-      else
-            viewHolder.buttonCall.setEnabled(false);
-
+      else {
+          viewHolder.buttonCall.setEnabled(false);
+      }
 
 
         viewHolder.buttonAccepted.setOnClickListener(new View.OnClickListener() {

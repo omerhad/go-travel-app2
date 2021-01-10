@@ -127,7 +127,7 @@ public class CustomListAdapter extends BaseAdapter {
                 company = currentItem.getCompany();
                 if(!company.get(viewHolder.company.getSelectedItem().toString())) {
                     company.put(viewHolder.company.getSelectedItem().toString(), true);
-                    currentItem.setCompany(company);
+                   // currentItem.setCompany(company);
                     currentItem.setCompany(company);
                     viewModel.updateTravel(currentItem);
                     Toast.makeText(context, "Thank you very much, the    " +viewHolder.company.getSelectedItem().toString() +"    company will contact you", Toast.LENGTH_LONG).show();
