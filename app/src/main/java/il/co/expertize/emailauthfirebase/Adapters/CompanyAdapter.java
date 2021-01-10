@@ -129,11 +129,12 @@ public class CompanyAdapter extends BaseAdapter {
         viewHolder.clientStartDate.setText("start Date:      "+format.format(currentItem.getTravelDate()));
         viewHolder.clientNumOfDay.setText("num of days:      "+diffDays);
 
-        String companyName = viewModel.emailOfUser().split("@")[0];
+        String companyName =  viewModel.emailOfUser().split("@")[0];
 
 
         for (String str:currentItem.getCompany().keySet()) {
-            if (str==companyName){
+            String strCurrent = str;
+            if (strCurrent==companyName){
                 bul=true;
             }
         }
@@ -142,11 +143,12 @@ public class CompanyAdapter extends BaseAdapter {
       if (bul){
           if (currentItem.getCompany().get(companyName)){
           viewHolder.Approve.setEnabled(true);
-          //viewHolder.Approve.setVisibility(0);
+          viewHolder.Approve.setVisibility(0);
                }
       }
       else
-          viewHolder.Approve.setEnabled(false);
+          viewHolder.Approve.setEnabled(true);
+          viewHolder.Approve.setVisibility(6);
 
 
         viewHolder.buttonAccepted.setOnClickListener(new View.OnClickListener() {
