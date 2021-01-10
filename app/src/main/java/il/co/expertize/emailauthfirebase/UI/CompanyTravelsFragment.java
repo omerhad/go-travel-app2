@@ -1,11 +1,15 @@
 package il.co.expertize.emailauthfirebase.UI;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
@@ -31,22 +35,25 @@ import il.co.expertize.emailauthfirebase.Adapters.CompanyAdapter;
 import il.co.expertize.emailauthfirebase.Adapters.CustomListAdapter;
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.R;
+import il.co.expertize.emailauthfirebase.Util.Gps;
 
-public class CompanyTravelsFragment extends Fragment {
-    //private RegisteredTravelsViewModel mViewModel;
+public class CompanyTravelsFragment extends Fragment implements LocationListener{
+
     View view;
     Button button;
     CustomListAdapter adapter;
     NavigationViewModel mViewModel;
     Context context;
     ListView itemsListView;
+    Location location;
     RecyclerView recyclerView;
     // public List<Travel> Travels;
     ArrayList<Travel> tmp;
-    LocationManager locationManager ;
+    LocationManager locationManager;
     LocationListener locationListener;
-    double lat;
-    double lon;
+    Gps gps;
+    double lat=0;
+    double lon=0;
 
     public static RegisteredTravelsFragment newInstance() {
         return new RegisteredTravelsFragment();
@@ -56,15 +63,25 @@ public class CompanyTravelsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.context=context;
+        this.context = context;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.company_travels_fragment, container, false);
+        View view = inflater.inflate(R.layout.company_travels_fragment, container, false);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 5);
+        }
+
+        locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
+
         return view;
+
     }
 
     @Override
@@ -74,10 +91,11 @@ public class CompanyTravelsFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
 
-        locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
 
 
-        mViewModel.findOpenTravelList(1,2,100).observe(this, new Observer<List<Travel>>() {
+
+
+        mViewModel.findOpenTravelList(lat,lon,100).observe(this, new Observer<List<Travel>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<Travel> travels) {
@@ -90,5 +108,13 @@ public class CompanyTravelsFragment extends Fragment {
                 itemsListView.setAdapter(adapter);
             }
         });
+
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+                lat = location.getLatitude();
+                lon = location.getLongitude();
+
     }
 }

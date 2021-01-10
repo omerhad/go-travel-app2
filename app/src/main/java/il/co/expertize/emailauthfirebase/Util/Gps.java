@@ -90,7 +90,7 @@ public class Gps extends Activity {
     }
 
 
-    private void getLocation() {
+    public void getLocation() {
 
         //     Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

@@ -81,54 +81,54 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 //
 //
 //        //Insert Travels
-        try {
-           String travelDate ;
-                travelDate =  "2020"+"-"+"02"+"-"+"25";
-                 String  travelDate2 =  "2020"+"-"+"03"+"-"+"10";
-                Date tDate = new Travel.DateConverter().fromTimestamp(travelDate);
-                 Date tDate2 = new Travel.DateConverter().fromTimestamp(travelDate2);
-                if (tDate == null)
-                    throw new Exception("שגיאה בתאריך");
-
-            Travel travel1 = new Travel();
-            travel1.setClientName("bat el");
-            travel1.setClientPhone("0584031109");
-            travel1.setClientEmail("elyasaf007@gmail.com");
-            travel1.setTravelLocation(new UserLocation(31.7650581, 35.191158099999996));
-            travel1.setSourceLocation(new UserLocation(31.7650581, 35.191158099999996));
-            travel1.setTravelDate(tDate);
-            travel1.setArrivalDate(tDate2);
-            travel1.setRequesType(Travel.RequestType.sent);
-            travel1.setCompany(new HashMap<String, Boolean>());
-            travel1.getCompany().put("Afikim",Boolean.FALSE);
-            travel1.getCompany().put("SuperBus",Boolean.FALSE);
-            travel1.getCompany().put("SmartBus",Boolean.FALSE);
-            travel1.getCompany().put("elyasaf007",Boolean.TRUE);
-            travel1.getCompany().put("omer",Boolean.TRUE);
-
-            travelViewModel.addTravel(travel1);
-
-            Travel travel2 = new Travel();
-            travel2.setClientName("Ronit");
-            travel2.setClientPhone("05428215563");
-            travel2.setClientEmail("elyasaf007@gmail.com");
-            travel2.setTravelLocation(new UserLocation(31.789271699999997, 35.1777526));
-            travel2.setTravelDate(tDate);
-            travel2.setArrivalDate(tDate2);
-            travel2.setRequesType(Travel.RequestType.sent);
-            travel2.setCompany(new HashMap<String, Boolean>());
-            travel2.getCompany().put("Egged",Boolean.FALSE);
-            travel2.getCompany().put("TsirTour",Boolean.FALSE);
-            travel2.getCompany().put("ely007",Boolean.FALSE);
-
-            travelViewModel.addTravel(travel2);
-
-            travel2.setClientName("elyasaf hagever");
-            travelViewModel.updateTravel(travel2);
-
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+//        try {
+//           String travelDate ;
+//                travelDate =  "2020"+"-"+"02"+"-"+"25";
+//                 String  travelDate2 =  "2020"+"-"+"03"+"-"+"10";
+//                Date tDate = new Travel.DateConverter().fromTimestamp(travelDate);
+//                 Date tDate2 = new Travel.DateConverter().fromTimestamp(travelDate2);
+//                if (tDate == null)
+//                    throw new Exception("שגיאה בתאריך");
+//
+//            Travel travel1 = new Travel();
+//            travel1.setClientName("bat el");
+//            travel1.setClientPhone("0584031109");
+//            travel1.setClientEmail("elyasaf007@gmail.com");
+//            travel1.setTravelLocation(new UserLocation(31.7650581, 35.191158099999996));
+//            travel1.setSourceLocation(new UserLocation(31.7650581, 35.191158099999996));
+//            travel1.setTravelDate(tDate);
+//            travel1.setArrivalDate(tDate2);
+//            travel1.setRequesType(Travel.RequestType.sent);
+//            travel1.setCompany(new HashMap<String, Boolean>());
+//            travel1.getCompany().put("Afikim",Boolean.FALSE);
+//            travel1.getCompany().put("SuperBus",Boolean.FALSE);
+//            travel1.getCompany().put("SmartBus",Boolean.FALSE);
+//            travel1.getCompany().put("elyasaf007",Boolean.TRUE);
+//            travel1.getCompany().put("omer",Boolean.TRUE);
+//
+//            travelViewModel.addTravel(travel1);
+//
+//            Travel travel2 = new Travel();
+//            travel2.setClientName("Ronit");
+//            travel2.setClientPhone("05428215563");
+//            travel2.setClientEmail("elyasaf007@gmail.com");
+//            travel2.setTravelLocation(new UserLocation(31.789271699999997, 35.1777526));
+//            travel2.setTravelDate(tDate);
+//            travel2.setArrivalDate(tDate2);
+//            travel2.setRequesType(Travel.RequestType.sent);
+//            travel2.setCompany(new HashMap<String, Boolean>());
+//            travel2.getCompany().put("Egged",Boolean.FALSE);
+//            travel2.getCompany().put("TsirTour",Boolean.FALSE);
+//            travel2.getCompany().put("ely007",Boolean.FALSE);
+//
+//            travelViewModel.addTravel(travel2);
+//
+//            travel2.setClientName("elyasaf hagever");
+//            travelViewModel.updateTravel(travel2);
+//
+//        } catch (Exception e) {
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+//        }
 
 
         ValueEventListener postListener = new ValueEventListener() {

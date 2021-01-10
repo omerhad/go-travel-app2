@@ -4,12 +4,14 @@ package il.co.expertize.emailauthfirebase.Data.Repository;
 import android.app.Application;
 import android.location.Location;
 import android.location.LocationManager;
+import android.provider.ContactsContract;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,17 +22,19 @@ import il.co.expertize.emailauthfirebase.Data.TravelFirebaseDataSource;
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 
 public class TravelRepository implements ITravelRepository {
+    List<Travel> travelHistory;
     ITravelDataSource travelDataSource;
     FirebaseUser user;
     public FirebaseAuth mAuth;
     private IHistoryDataSource historyDataSource;
     private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository;
     List<Travel> travelList;
-    List<Travel> travelList2=new LinkedList<Travel>();
+    List<Travel> travelList2;
 
 
     private MutableLiveData<List<Travel>> mutableLiveDataRegistered = new MutableLiveData<>();
     private MutableLiveData<List<Travel>> mutableLiveDataCompany = new MutableLiveData<>();
+    private MutableLiveData<List<Travel>> mutableLiveDataHistory = new MutableLiveData<>();
 
 
 
@@ -42,6 +46,8 @@ public class TravelRepository implements ITravelRepository {
     }
 
     private TravelRepository(Application application) {
+        travelList2=new LinkedList<Travel>();
+        travelHistory=new LinkedList<Travel>();
         travelDataSource = TravelFirebaseDataSource.getInstance();
         historyDataSource = new HistoryDataSource(application.getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
@@ -49,12 +55,19 @@ public class TravelRepository implements ITravelRepository {
         ITravelDataSource.NotifyToTravelListListener notifyToTravelListListener = new ITravelDataSource.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-               // travelList.clear();
-                travelList = travelDataSource.getAllTravels();
+                 travelList = travelDataSource.getAllTravels();
 
                 if (notifyToTravelListListenerRepository != null)
                     notifyToTravelListListenerRepository.onTravelsChanged();
 
+
+                for (Travel travel:travelList) {
+                    if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)){
+                        travelHistory.add(travel);
+                    }
+                }
+                historyDataSource.clearTable();
+                historyDataSource.addTravel(travelHistory);
             }
         };
 
@@ -112,6 +125,19 @@ public class TravelRepository implements ITravelRepository {
 
 
 
+    public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start,Date end) {
+        LinkedList<Travel> historyTravels = new LinkedList<Travel>();
+        for (Travel travel:travelHistory) {
+            if(travel.getArrivalDate().after(start) && travel.getTravelDate().before(end)) {
+                if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)) {
+                    historyTravels.add(travel);
+                }
+            }
+
+        }
+        mutableLiveDataHistory.setValue(historyTravels);
+        return mutableLiveDataHistory;
+    }
 
 
     @Override
@@ -127,4 +153,5 @@ public class TravelRepository implements ITravelRepository {
     public String emailOfUser(){
         return user.getEmail();
     }
+    public String phoneOfUser(){ return user.getPhoneNumber(); }
 }

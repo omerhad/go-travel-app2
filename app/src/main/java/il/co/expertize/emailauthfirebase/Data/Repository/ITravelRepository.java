@@ -13,7 +13,8 @@ public interface ITravelRepository {
     void updateTravel(Travel travel);
     MutableLiveData<List<Travel>> getAllTravels();
     MutableLiveData<Boolean> getIsSuccess();
-    public String emailOfUser();
+    String emailOfUser();
+    String phoneOfUser();
     interface NotifyToTravelListListener {
         void onTravelsChanged();
     }

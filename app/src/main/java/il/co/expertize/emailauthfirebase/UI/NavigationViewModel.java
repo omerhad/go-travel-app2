@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 
+import java.util.Date;
 import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
@@ -43,6 +44,7 @@ public class NavigationViewModel extends AndroidViewModel {
         return mutableLiveData;
     }
     public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes){return mutableLiveData;}
+    public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start, Date end){return mutableLiveData;}
     MutableLiveData<Boolean> getIsSuccess()
     {
         return repository.getIsSuccess();
@@ -50,6 +52,7 @@ public class NavigationViewModel extends AndroidViewModel {
     public String emailOfUser(){
         return repository.emailOfUser();
     }
+    public String phoneOfUser(){return repository.phoneOfUser(); }
 
 
 

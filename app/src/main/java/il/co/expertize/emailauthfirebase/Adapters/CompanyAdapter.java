@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -144,15 +145,22 @@ public class CompanyAdapter extends BaseAdapter {
 
         viewHolder.Approve.setChecked(false);
       if (bul){
-          Boolean tmp=currentItem.getCompany().get(companyName).booleanValue();
-          if (tmp){
+
+          if (currentItem.getCompany().get(companyName).booleanValue()){
           viewHolder.Approve.setChecked(true);
-          viewHolder.buttonAccepted.setEnabled(false);
+//          viewHolder.Approve.setTextColor(Color.RED);
+//          viewHolder.Approve.setBackgroundColor(Color.parseColor("#F6080F"));
+          viewHolder.buttonAccepted.setVisibility(View.GONE);
+          viewHolder.buttonCall.setVisibility(View.VISIBLE);
                }
-     //     else viewHolder.Approve.setChecked(true);
+          else {
+              viewHolder.buttonCall.setVisibility(View.GONE);
+              viewHolder.buttonAccepted.setVisibility(View.VISIBLE);
+          }
       }
       else {
-          viewHolder.buttonCall.setEnabled(false);
+          viewHolder.buttonCall.setVisibility(View.GONE);
+          viewHolder.buttonAccepted.setVisibility(View.VISIBLE);
       }
 
 

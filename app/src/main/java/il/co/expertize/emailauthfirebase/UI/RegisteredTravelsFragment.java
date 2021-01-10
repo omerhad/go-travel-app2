@@ -31,16 +31,9 @@ import il.co.expertize.emailauthfirebase.R;
 public class RegisteredTravelsFragment extends Fragment {
 
 
-    //private RegisteredTravelsViewModel mViewModel;
-    View view;
-    Button button;
-    CustomListAdapter adapter;
     NavigationViewModel mViewModel;
     Context context;
     ListView itemsListView;
-    RecyclerView recyclerView;
-   // public List<Travel> Travels;
-   ArrayList<Travel> tmp;
 
     public static RegisteredTravelsFragment newInstance() {
         return new RegisteredTravelsFragment();
@@ -58,7 +51,6 @@ public class RegisteredTravelsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.registered_travels_fragment, container, false);
-       // mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         return view;
     }
 
@@ -68,7 +60,6 @@ public class RegisteredTravelsFragment extends Fragment {
         itemsListView  = (ListView)view.findViewById(R.id.list_register);
 
 
-        //mViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(MainViewModel.class);
 
          mViewModel = ViewModelProviders.of(getActivity()).get(NavigationViewModel.class);
         mViewModel.getAllTravels().observe(this, new Observer<List<Travel>>() {
