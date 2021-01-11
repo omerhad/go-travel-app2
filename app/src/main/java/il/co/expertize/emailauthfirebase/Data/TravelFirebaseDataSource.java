@@ -24,8 +24,7 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 public class TravelFirebaseDataSource implements  ITravelDataSource{
 
     private static final String TAG = "Firebase";
-    //FirebaseUser user;
-   // private String a= user.getEmail();
+
     private MutableLiveData<Boolean> isSuccess= new MutableLiveData<>();
     private List<Travel> allTravelsList;
 
@@ -112,8 +111,6 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
 
     @Override
     public void updateTravel(final Travel toUpdate) {
-//        removeTravel(toUpdate.getTravelId());
-//        addTravel(toUpdate);
         travels.child(toUpdate.getTravelId()).setValue(toUpdate);
     }
 
@@ -122,18 +119,11 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
         return allTravelsList;
     }
 
-//    @Override
-//    public List<Travel> findOpenTravelList(double lat, double lon, int maxDes) {
-//        return allTravelsList;
-//    }
     @Override
     public List<Travel> findOpenTravelList() {
         return allTravelsList;
     }
-//    @Override
-//    public List<Travel> getAllCloseTravelList(Date start, Date end) {
-//        return allTravelsList;
-//    }
+
     @Override
     public List<Travel> getAllCloseTravelList() {
         return allTravelsList;

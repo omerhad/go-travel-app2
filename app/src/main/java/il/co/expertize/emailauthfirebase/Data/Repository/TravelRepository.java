@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
+import androidx.lifecycle.Observer;
 import il.co.expertize.emailauthfirebase.Data.HistoryDataSource;
 import il.co.expertize.emailauthfirebase.Data.IHistoryDataSource;
 import il.co.expertize.emailauthfirebase.Data.ITravelDataSource;
@@ -53,23 +53,34 @@ public class TravelRepository implements ITravelRepository {
         historyDataSource = new HistoryDataSource(application.getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
         ITravelDataSource.NotifyToTravelListListener notifyToTravelListListener = new ITravelDataSource.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-//                 travelListReg = travelDataSource.getAllTravels();
-//                 travelListComp = travelDataSource.findOpenTravelList();
-//                 travelListHis = travelDataSource.getAllCloseTravelList();
-
+                //buildRoom();
+                findOpenTravelList();
+                getAllCloseTravelList();
+                getAllTravels();
                 if (notifyToTravelListListenerRepository != null)
                     notifyToTravelListListenerRepository.onTravelsChanged();
 
-
+                travelListHis=travelDataSource.getAllTravels();
                 historyDataSource.clearTable();
                 historyDataSource.addTravel(travelListHis);
             }
         };
 
         travelDataSource.setNotifyToTravelListListener(notifyToTravelListListener);
+
+//        historyDataSource.getTravels().observeForever(new Observer<List<Travel>>()  {
+//            @Override
+//            public void onChanged(List<Travel> historyTravelList) {
+//                for (Travel travel :historyTravelList)
+//                    if(travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid))
+//                        historyTravelList.add(travel);
+//                mutableLiveDataHistory.setValue(historyTravelList);
+//            }
+//        });
     }
 
     @Override
@@ -85,41 +96,18 @@ public class TravelRepository implements ITravelRepository {
     @Override
     public  MutableLiveData<List<Travel>> getAllTravels() {
         travelList2.clear();
-       // String strEmail=user.getEmail();
         for (Travel travel:travelDataSource.getAllTravels()) {
-            if (travel.getClientEmail().equals(user.getEmail()) && !(travel.getRequesType().equals(Travel.RequestType.close)))
+            if (travel.getClientEmail().equals(user.getEmail()) && !(travel.getRequesType().equals(Travel.RequestType.close))&&
+                    !(travel.getRequesType().equals(Travel.RequestType.paid)))
                 travelList2.add(travel);
         }
-        //travelList=travelList2;
+
         mutableLiveDataRegistered.setValue(travelList2);
         return mutableLiveDataRegistered;
     }
 
 
 
-//    public MutableLiveData<List<Travel>> findOpenTravelList(double lat,double lon,int maxDes) {
-//
-//        LinkedList<Travel> companyTravels = new LinkedList<Travel>();
-//        for (Travel travel : travelListComp) {
-//            if (travel.getRequesType().toString().equals(Travel.RequestType.sent) || travel.getRequesType().toString().equals(Travel.RequestType.accepted)) {
-//                Location temp = new Location(LocationManager.GPS_PROVIDER);
-//                temp.setLatitude(lat);
-//                temp.setLongitude(lon);
-//
-//                Location temp1 = new Location(LocationManager.GPS_PROVIDER);
-//                temp1.setLatitude(travel.getSourceLocation().getLat());
-//                temp1.setLongitude(travel.getSourceLocation().getLon());
-//
-//                double  distance= temp.distanceTo(temp1);
-//                //     Toast.makeText(this.application.getApplicationContext(), " dis is :" + distance, Toast.LENGTH_LONG).show();
-//                if(distance<maxDes)
-//                    companyTravels.add(travel);
-//
-//            }
-//        }
-//        mutableLiveDataCompany.setValue(companyTravels);
-//        return mutableLiveDataCompany;
-//    }
     @Override
     public MutableLiveData<List<Travel>> findOpenTravelList() {
 
@@ -127,40 +115,31 @@ public class TravelRepository implements ITravelRepository {
         for (Travel travel : travelDataSource.findOpenTravelList()) {
             if (travel.getRequesType().equals(Travel.RequestType.sent) || travel.getRequesType().equals(Travel.RequestType.accepted)) {
                     companyTravels.add(travel);
-
             }
         }
         mutableLiveDataCompany.setValue(companyTravels);
         return mutableLiveDataCompany;
     }
-//    @Override
-//    public MutableLiveData<List<Travel>> getAllCloseTravelList(Date start,Date end) {
-//        LinkedList<Travel> historyTravels = new LinkedList<Travel>();
-//        for (Travel travel:travelDataSource.getAllCloseTravelList()) {
-//            if(travel.getArrivalDate().after(start) && travel.getTravelDate().before(end)) {
-//                if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)) {
-//                    historyTravels.add(travel);
-//                }
-//            }
-//
-//        }
-//        mutableLiveDataHistory.setValue(historyTravels);
-//        return mutableLiveDataHistory;
-//    }
+
 
     @Override
     public MutableLiveData<List<Travel>> getAllCloseTravelList() {
         LinkedList<Travel> historyTravels = new LinkedList<Travel>();
-        for (Travel travel:travelDataSource.getAllCloseTravelList()) {
+            for (Travel travel:travelDataSource.getAllTravels()) {
                 if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)) {
                     historyTravels.add(travel);
                 }
             }
-        mutableLiveDataHistory.setValue(historyTravels);
-        return mutableLiveDataHistory;
+            mutableLiveDataHistory.setValue(historyTravels);
+            return mutableLiveDataHistory;
+
     }
 
-
+    public void buildRoom(){
+        travelListHis=travelDataSource.getAllTravels();
+        historyDataSource.clearTable();
+        historyDataSource.addTravel(travelListHis);
+    }
 
     @Override
     public MutableLiveData<Boolean> getIsSuccess() {
@@ -171,6 +150,7 @@ public class TravelRepository implements ITravelRepository {
     public void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l) {
         notifyToTravelListListenerRepository = l;
     }
+
     @Override
     public String emailOfUser(){
         return user.getEmail();

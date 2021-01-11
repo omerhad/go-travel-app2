@@ -47,7 +47,7 @@ public class CustomListAdapter extends BaseAdapter {
     private Location location;
     private NavigationViewModel viewModel;
     private int numStatus;
-//   private FragmentActivity viewModelStore;
+    //   private FragmentActivity viewModelStore;
     private java.text.SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 
@@ -92,10 +92,10 @@ public class CustomListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
-
+//
+//
         Travel currentItem = (Travel) getItem(position);
-        viewHolder.clientName.setText(currentItem.getClientName());
+       viewHolder.clientName.setText(currentItem.getClientName());
         viewHolder.clientDestination.setText("destination:      " + strLocation);
         viewHolder.exp.setText("your current status is:      " + currentItem.getRequesType().toStr(Travel.RequestType.getTypeInt(currentItem.getRequesType())));
         viewHolder.clientDate.setText("start Date:      "+format.format(currentItem.getTravelDate()));
@@ -104,7 +104,7 @@ public class CustomListAdapter extends BaseAdapter {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         if (currentItem.getRequesType().getCode()!= 3)
-        viewHolder.clientStatus.setSelection(currentItem.getRequesType().getCode());
+            viewHolder.clientStatus.setSelection(currentItem.getRequesType().getCode());
 
         viewHolder.company.setAdapter(adapter);
 
@@ -112,7 +112,7 @@ public class CustomListAdapter extends BaseAdapter {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                viewHolder.exp.setText("your current status is:    " + currentItem.getRequesType().toStr(position));
-               numStatus=position;
+                numStatus=position;
             }
 
             @Override
@@ -127,7 +127,7 @@ public class CustomListAdapter extends BaseAdapter {
                 company = currentItem.getCompany();
                 if(!company.get(viewHolder.company.getSelectedItem().toString())) {
                     company.put(viewHolder.company.getSelectedItem().toString(), true);
-                   // currentItem.setCompany(company);
+                    // currentItem.setCompany(company);
                     currentItem.setCompany(company);
                     viewModel.updateTravel(currentItem);
                     Toast.makeText(context, "Thank you very much, the    " +viewHolder.company.getSelectedItem().toString() +"    company will contact you", Toast.LENGTH_LONG).show();
@@ -189,33 +189,5 @@ public class CustomListAdapter extends BaseAdapter {
 
         }
     }
-//    public String getPlace(Location location) {
-//        String cityName="" ;
-//        String stateName="";
-//        String countryName="";
-//        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-//        List<Address> addresses = null;
-//        try {
-//            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//
-//
-//            if (addresses.size() > 0) {
-//                cityName = addresses.get(0).getAddressLine(0);
-//                if (addresses.size() > 1)
-//                    stateName = addresses.get(0).getAddressLine(1);
-//                if (addresses.size() > 2)
-//                    countryName = addresses.get(0).getAddressLine(2);
-//                return stateName + " " + cityName + " " + countryName;
-//            }
-//
-//            return "no place: \n ("+location.getLongitude()+" , "+location.getLatitude()+")";
-//        }
-//        catch(
-//                IOException e)
-//
-//        {
-//            e.printStackTrace();
-//        }
-//        return "IOException ...";
-//    }
+
 }

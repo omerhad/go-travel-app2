@@ -22,7 +22,13 @@
         android:padding="8dp"
         android:textColor="#F11638"
         />
-
+    <TextView
+        android:id="@+id/explain_if_status_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textColor="#F11638"
+        />
 
 
     <LinearLayout
@@ -39,7 +45,7 @@
             android:background="@drawable/round_bottons"
             android:backgroundTint="#F2F2F2"
             android:padding="10dp"
-            android:text="Approve Company"
+            android:text="call to company"
             android:textAllCaps="false"
             android:textColor="#1B219F" />
 
@@ -51,7 +57,7 @@
             android:background="@drawable/round_bottons"
             android:backgroundTint="#F2F2F2"
             android:padding="10dp"
-            android:text="Save Status"
+            android:text="customer paid"
             android:textAllCaps="false"
             android:textColor="#1B219F" />
     </LinearLayout>

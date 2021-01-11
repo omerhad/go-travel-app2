@@ -112,6 +112,7 @@ public class HistoryAdapter extends BaseAdapter {
 
         viewHolder.companyName.setText("name of company:      "+strChooseCompany);
         viewHolder.numOfKm.setText("distance in KM:      " + distance);
+        viewHolder.exp.setText("your current status is:      " + currentItem.getRequesType().toStr(Travel.RequestType.getTypeInt(currentItem.getRequesType())));
 
         viewHolder.changeStatus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +121,8 @@ public class HistoryAdapter extends BaseAdapter {
                 if(currentItem.getRequesType().equals(Travel.RequestType.close)) {
                     currentItem.setRequesType(Travel.RequestType.paid);
                     viewModel.updateTravel(currentItem);
+                    viewHolder.exp.clearComposingText();
+                    viewHolder.exp.setText("your current status is:    paid");
                     Toast.makeText(context, "The status is paid now", Toast.LENGTH_LONG).show();
                 }
                 else
@@ -131,7 +134,7 @@ public class HistoryAdapter extends BaseAdapter {
         viewHolder.callCompany.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneCompany =viewModel.emailOfUser();
+                String phoneCompany =viewModel.phoneOfUser();
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:"+ phoneCompany));
 
@@ -150,6 +153,7 @@ public class HistoryAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView companyName;
         TextView numOfKm;
+        TextView exp;
         Button changeStatus;
         Button callCompany;
 
@@ -157,6 +161,7 @@ public class HistoryAdapter extends BaseAdapter {
         public ViewHolder(View view) {
             companyName = (TextView) view.findViewById(R.id.name_company);
             numOfKm = (TextView) view.findViewById(R.id.num_of_km);
+            exp = (TextView) view.findViewById(R.id.explain_if_status_change);
             changeStatus = (Button) view.findViewById(R.id.change_status);
             callCompany = (Button) view.findViewById(R.id.call_company);
         }

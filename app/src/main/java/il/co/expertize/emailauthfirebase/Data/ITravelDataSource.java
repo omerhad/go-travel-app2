@@ -11,12 +11,9 @@ public interface ITravelDataSource {
     void addTravel(Travel travel);
     void updateTravel(Travel travel);
     List<Travel> getAllTravels();
-//    List<Travel> findOpenTravelList(double lat,double lon,int maxDes);
-//    List<Travel> getAllCloseTravelList(Date start, Date end);
     List<Travel> findOpenTravelList();
     List<Travel> getAllCloseTravelList();
     MutableLiveData<Boolean> getIsSuccess();
-
     interface NotifyToTravelListListener {
         void onTravelsChanged();
     }
