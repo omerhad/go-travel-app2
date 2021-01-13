@@ -12,16 +12,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,15 +35,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.util.Date;
-import java.util.HashMap;
-
-import il.co.expertize.emailauthfirebase.Data.UserLocation;
-import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
 
-public class NavigationDrawerActivity extends AppCompatActivity {
+public class NavigationDrawerActivity extends AppCompatActivity implements myBroadcastReciever.pushInterface {
 
     private TextView name,email;
     private DrawerLayout dl;
@@ -67,6 +67,15 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(USERS);
 
+        startService(new Intent(il.co.expertize.emailauthfirebase.UI.NavigationDrawerActivity.this, myService.class));
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
+        intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
+        intentFilter.addAction(Intent.ACTION_TIME_TICK);
+        intentFilter.addAction("com.javacodegeeks.android.A_CUSTOM_INTENT");
+        registerReceiver(new myBroadcastReciever(), intentFilter);
 
         travelViewModel= ViewModelProviders.of(this).get(NavigationViewModel.class);
         travelViewModel.getIsSuccess().observe(this, new Observer<Boolean>() {
@@ -204,8 +213,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                         loadFragment(new CompanyTravelsFragment());
                         return true;
                         case R.id.exit:
+                            stopService(new Intent(il.co.expertize.emailauthfirebase.UI.NavigationDrawerActivity.this, myService.class));
                        finish();
-//                        System.exit(0);
                     default:
                         return true;
                 }
@@ -233,4 +242,22 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, tmp);
         fragmentTransaction.commit(); // save the changes
     }
+
+
+    @SuppressLint("ResourceType")
+    @Override
+    public void passText(String text) {
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.layout.snack_bar), "Message is deleted", Snackbar.LENGTH_LONG)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Snackbar snackbar1 = Snackbar.make(findViewById(R.layout.snack_bar), "Message is restored!", Snackbar.LENGTH_SHORT);
+                        snackbar1.show();
+                    }
+                });
+
+        snackbar.show();
+    }
+
 }

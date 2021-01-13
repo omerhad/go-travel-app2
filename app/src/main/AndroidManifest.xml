@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="il.co.expertize.emailauthfirebase">
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
@@ -25,10 +26,28 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UI.LoginActivity" />
         <activity android:name=".UI.CreateAccount" />
         <activity android:name=".UI.NavigationDrawerActivity"/>
+
+
+        <receiver android:name=".UI.myBroadcastReciever">
+            <intent-filter
+                android:enabled="true"
+                android:exported="true">
+                <action android:name="android.intent.action.TIME_TICK" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.javacodegeeks.android.A_CUSTOM_INTENT"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 

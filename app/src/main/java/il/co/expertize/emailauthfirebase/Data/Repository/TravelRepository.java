@@ -57,30 +57,19 @@ public class TravelRepository implements ITravelRepository {
         ITravelDataSource.NotifyToTravelListListener notifyToTravelListListener = new ITravelDataSource.NotifyToTravelListListener() {
             @Override
             public void onTravelsChanged() {
-                //buildRoom();
+                buildRoom();
                 findOpenTravelList();
                 getAllCloseTravelList();
                 getAllTravels();
                 if (notifyToTravelListListenerRepository != null)
                     notifyToTravelListListenerRepository.onTravelsChanged();
 
-                travelListHis=travelDataSource.getAllTravels();
-                historyDataSource.clearTable();
-                historyDataSource.addTravel(travelListHis);
             }
         };
 
         travelDataSource.setNotifyToTravelListListener(notifyToTravelListListener);
 
-//        historyDataSource.getTravels().observeForever(new Observer<List<Travel>>()  {
-//            @Override
-//            public void onChanged(List<Travel> historyTravelList) {
-//                for (Travel travel :historyTravelList)
-//                    if(travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid))
-//                        historyTravelList.add(travel);
-//                mutableLiveDataHistory.setValue(historyTravelList);
-//            }
-//        });
+
     }
 
     @Override

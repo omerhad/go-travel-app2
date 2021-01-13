@@ -52,10 +52,8 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
                 allTravelsList.clear();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                        if (a == snapshot.getValue(Travel.class).getClientEmail().toString()){
                         Travel travel = snapshot.getValue(Travel.class);
                         allTravelsList.add(travel);
-                        //}
                     }
                 }
                 if (notifyToTravelListListener != null)

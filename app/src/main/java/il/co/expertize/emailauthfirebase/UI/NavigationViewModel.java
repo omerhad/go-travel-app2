@@ -16,26 +16,13 @@ import il.co.expertize.emailauthfirebase.Data.Repository.TravelRepository;
 
 public class NavigationViewModel extends AndroidViewModel {
     ITravelRepository repository;
-    private MutableLiveData<List<Travel>> mutableLiveDataReg = new MutableLiveData<>();
-    private MutableLiveData<List<Travel>> mutableLiveDataComp = new MutableLiveData<>();
-    private MutableLiveData<List<Travel>> mutableLiveDataHis = new MutableLiveData<>();
     public NavigationViewModel(Application p) {
         super(p);
-
         repository =  TravelRepository.getInstance(p);
-
-//        ITravelRepository.NotifyToTravelListListener notifyToTravelListListener = new ITravelRepository.NotifyToTravelListListener() {
-//            @Override
-//            public void onTravelsChanged() {
-//                mutableLiveDataReg.setValue(repository.getAllTravels().getValue());
-////                List<Travel> travelListComp =repository.findOpenTravelList().getValue();
-//                mutableLiveDataComp.setValue(repository.findOpenTravelList().getValue());
-////                List<Travel> travelListHis =repository.getAllCloseTravelList().getValue();
-//                mutableLiveDataHis.setValue(repository.getAllCloseTravelList().getValue());
-//            }
-//        };
-//        repository.setNotifyToTravelListListener(notifyToTravelListListener);
    }
+
+
+
     void addTravel(Travel travel)
     {
         repository.addTravel(travel);
@@ -46,10 +33,10 @@ public class NavigationViewModel extends AndroidViewModel {
     }
     public MutableLiveData<List<Travel>> getAllTravels()
     {
-        return repository.getAllTravels();//mutableLiveDataReg;
+        return repository.getAllTravels();
     }
-    public MutableLiveData<List<Travel>> findOpenTravelList(){return repository.findOpenTravelList();}//mutableLiveDataComp;}
-    public MutableLiveData<List<Travel>> getAllCloseTravelList(){return repository.getAllCloseTravelList();}//mutableLiveDataHis;}
+    public MutableLiveData<List<Travel>> findOpenTravelList(){return repository.findOpenTravelList();}
+    public MutableLiveData<List<Travel>> getAllCloseTravelList(){return repository.getAllCloseTravelList();}
     MutableLiveData<Boolean> getIsSuccess()
     {
         return repository.getIsSuccess();
