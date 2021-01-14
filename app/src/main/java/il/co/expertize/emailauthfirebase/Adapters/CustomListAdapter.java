@@ -180,7 +180,7 @@ public class CustomListAdapter extends BaseAdapter {
             buttonCompany=(Button) view.findViewById(R.id.save_company);
             Travel.RequestType[] enumR;
             enumR=new Travel.RequestType[]{Travel.RequestType.accepted, Travel.RequestType.run, Travel.RequestType.close};
-
+            
             //Creating the ArrayAdapter instance having the bank name list
             ArrayAdapter aa = new ArrayAdapter<Travel.RequestType>(context,android.R.layout.simple_spinner_item,enumR);
             aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
