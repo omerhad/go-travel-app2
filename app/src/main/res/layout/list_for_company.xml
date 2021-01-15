@@ -62,16 +62,17 @@
             android:layout_height="73dp"
             android:src="@drawable/phone"
             android:text="Call"
+            android:background="@drawable/button_orange"
             android:textColor="#F6080F" />
 
         <Button
             android:id="@+id/button_accept"
             android:layout_width="109dp"
             android:layout_height="61dp"
-            android:background="@drawable/round_bottons"
-            android:backgroundTint="#F2F2F2"
+            android:background="@drawable/button_blue"
             android:padding="10dp"
             android:text="Accept"
+            android:textStyle="bold"
             android:textAllCaps="false"
             android:textColor="#F6080F" />
         <LinearLayout

@@ -31,9 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/round_bottons"
-            android:backgroundTint="#F2F2F2"
+            android:textStyle="bold"
             android:padding="10dp"
-            android:text="Create account" />
+            android:text="Create account"
+         />
 
         <Button
             android:id="@+id/login"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/round_bottons"
-            android:backgroundTint="#F2F2F2"
+            android:textStyle="bold"
             android:padding="10dp"
             android:text="Login" />
     </LinearLayout>
