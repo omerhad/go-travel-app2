@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -37,6 +38,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
+
+import static androidx.core.view.accessibility.AccessibilityEventCompat.setAction;
 
 public class NavigationDrawerActivity extends AppCompatActivity implements myBroadcastReciever.pushInterface {
 
@@ -75,7 +78,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements myBro
         intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
         intentFilter.addAction("com.javacodegeeks.android.A_CUSTOM_INTENT");
-        registerReceiver(new myBroadcastReciever(), intentFilter);
+
+        myBroadcastReciever mReceiver = new myBroadcastReciever();
+        mReceiver.registerReceiver(this);
+        registerReceiver(mReceiver, intentFilter);
 
         travelViewModel= ViewModelProviders.of(this).get(NavigationViewModel.class);
         travelViewModel.getIsSuccess().observe(this, new Observer<Boolean>() {
@@ -244,20 +250,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements myBro
     }
 
 
-    @SuppressLint("ResourceType")
+
     @Override
     public void passText(String text) {
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.layout.snack_bar), "Message is deleted", Snackbar.LENGTH_LONG)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Snackbar snackbar1 = Snackbar.make(findViewById(R.layout.snack_bar), "Message is restored!", Snackbar.LENGTH_SHORT);
-                        snackbar1.show();
-                    }
-                });
+        Snackbar.make(findViewById(R.id.myCoordinatorLayout) , text, Snackbar.LENGTH_LONG)
+                .show();
 
-        snackbar.show();
-    }
-
+}
 }
