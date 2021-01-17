@@ -111,7 +111,6 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolder.clientStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                viewHolder.exp.setText("your current status is:    " + currentItem.getRequesType().toStr(position));
                 numStatus=position;
             }
 
