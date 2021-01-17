@@ -116,13 +116,9 @@ public class CompanyAdapter extends BaseAdapter {
         Travel currentItem = (Travel) getItem(position);
 
 
-//        LocalDate d1 = LocalDate.parse(format.format(currentItem.getTravelDate()), DateTimeFormatter.ISO_LOCAL_DATE);
-//        LocalDate d2 = LocalDate.parse(format.format(currentItem.getArrivalDate()), DateTimeFormatter.ISO_LOCAL_DATE);
-//        Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
-//        long diffDays = diff.toDays();
         long diffInMillies = Math.abs( currentItem.getTravelDate().getTime() - currentItem.getArrivalDate().getTime());
         long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        //  long diffDays = currentItem.getTravelDate().getDay()-currentItem.getArrivalDate().getDay();
+
 
 
 

@@ -12,22 +12,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,33 +31,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import java.util.Date;
-import java.util.HashMap;
-
-import il.co.expertize.emailauthfirebase.Data.UserLocation;
-import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
 
-import static androidx.core.view.accessibility.AccessibilityEventCompat.setAction;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
-    private TextView name,email;
+    private TextView name;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
    private NavigationViewModel travelViewModel;
     private DatabaseReference userRef;
     private FirebaseDatabase database;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private User user;
-    private String travelDate;
     private static final String USERS = "users";
     private final String TAG = this.getClass().getName().toUpperCase();
 
-   // @SuppressLint("ResourceType")
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +58,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String recieveEmail=intent.getStringExtra(LoginActivity.Email);
         name=findViewById(R.id.textName);
-       // email= findViewById(R.id.textEmail);
 
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(USERS);
@@ -198,7 +185,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         dl.addDrawerListener(t);
         t.syncState();
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

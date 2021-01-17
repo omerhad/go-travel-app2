@@ -53,25 +53,6 @@ public class CreateAccount extends AppCompatActivity {
     }
 
 
-//    private void dispatchTakePictureIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        try {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        } catch (ActivityNotFoundException e) {
-//            // display error state to the user
-//        }
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 100) {
-//            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-//            imageView.setImageBitmap(imageBitmap);
-//        }
-//    }
-
-
     private void registerNewUser() {
 
 
@@ -108,9 +89,6 @@ public class CreateAccount extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.VISIBLE);
-//                            ContentLoadingProgressBar loadingProgressBar;
-//                            loadingProgressBar.set
-                            //Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_LONG).show();
                             AlertDialog.Builder builder = new AlertDialog.Builder(
                                     CreateAccount.this);
                             builder.setTitle("Hello "+ emailTV.getText().toString());
@@ -149,8 +127,6 @@ public class CreateAccount extends AppCompatActivity {
 
 
     private void sendEmailVerification() {
-        // Disable Verify Email button
-        //findViewById(R.id.btn_verify_email).setEnabled(false);
 
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification()
@@ -161,19 +137,14 @@ public class CreateAccount extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
                             if (user.isEmailVerified())
                             {
-                                // user is verified, so you can finish this activity or send user to activity which you want.
-                                // finish();
-
-                                //Toast.makeText(CreateAccount.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_LONG).show();
-                                // update UI with the signed-in user's information
+
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
+
                                 Intent intent = new Intent(CreateAccount.this, NavigationDrawerActivity.class);
                                 startActivity(intent);
                             }
                         } else {
-                            //Log.e(TAG, "sendEmailVerification failed!", task.getException());
                             Toast.makeText(getApplicationContext(), "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                         }
                     }

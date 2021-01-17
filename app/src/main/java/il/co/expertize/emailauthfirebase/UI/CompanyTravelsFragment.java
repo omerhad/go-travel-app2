@@ -41,22 +41,13 @@ import il.co.expertize.emailauthfirebase.Util.Gps;
 
 public class CompanyTravelsFragment extends Fragment implements LocationListener{
 
-    View view;
-    Button button;
-    CustomListAdapter adapter;
+
     NavigationViewModel mViewModel;
     Context context;
     ListView itemsListView;
-    Location location;
-    RecyclerView recyclerView;
-    // public List<Travel> Travels;
-    ArrayList<Travel> tmp;
     LocationManager locationManager;
-    LocationListener locationListener;
-    Gps gps;
     double lat=0;
     double lon=0;
-    int maxDes=100;
 
     public static RegisteredTravelsFragment newInstance() {
         return new RegisteredTravelsFragment();
