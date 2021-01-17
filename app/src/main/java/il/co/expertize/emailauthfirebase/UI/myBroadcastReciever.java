@@ -50,7 +50,7 @@ public class myBroadcastReciever extends BroadcastReceiver {
 
         // prepare intent which is triggered if the
         // notification is selected
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.androidauthority.com/"));
+        Intent intent = new Intent(context,LoginActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         Notification.Builder mBuilder = new Notification.Builder(context, id);
