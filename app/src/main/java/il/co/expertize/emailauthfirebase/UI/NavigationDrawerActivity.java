@@ -36,12 +36,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.util.Date;
+import java.util.HashMap;
+
+import il.co.expertize.emailauthfirebase.Data.UserLocation;
+import il.co.expertize.emailauthfirebase.Entities.Travel;
 import il.co.expertize.emailauthfirebase.Entities.User;
 import il.co.expertize.emailauthfirebase.R;
 
 import static androidx.core.view.accessibility.AccessibilityEventCompat.setAction;
 
-public class NavigationDrawerActivity extends AppCompatActivity implements myBroadcastReciever.pushInterface {
+public class NavigationDrawerActivity extends AppCompatActivity {
 
     private TextView name,email;
     private DrawerLayout dl;
@@ -73,15 +78,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements myBro
         startService(new Intent(il.co.expertize.emailauthfirebase.UI.NavigationDrawerActivity.this, myService.class));
 
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
-        intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
-        intentFilter.addAction(Intent.ACTION_TIME_TICK);
-        intentFilter.addAction("com.javacodegeeks.android.A_CUSTOM_INTENT");
+        intentFilter.addAction("com.javacodegeeks.android.A_NEW+TRAVEL");
 
-        myBroadcastReciever mReceiver = new myBroadcastReciever();
-        mReceiver.registerReceiver(this);
-        registerReceiver(mReceiver, intentFilter);
 
         travelViewModel= ViewModelProviders.of(this).get(NavigationViewModel.class);
         travelViewModel.getIsSuccess().observe(this, new Observer<Boolean>() {
@@ -93,7 +91,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements myBro
                     Toast.makeText(NavigationDrawerActivity.this, "Data Not Inserted", Toast.LENGTH_LONG).show();
             }
         });
-//
+
 //
 //        //Insert Travels
 //        try {
@@ -251,10 +249,5 @@ public class NavigationDrawerActivity extends AppCompatActivity implements myBro
 
 
 
-    @Override
-    public void passText(String text) {
-        Snackbar.make(findViewById(R.id.myCoordinatorLayout) , text, Snackbar.LENGTH_LONG)
-                .show();
 
-}
 }

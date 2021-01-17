@@ -10,7 +10,7 @@
             android:title="History Travel" />
         <item
             android:id="@+id/Registered_Travel"
-            android:icon="@drawable/register"
+            android:icon="@drawable/register2"
             android:title="Registered Travel" />
         <item
             android:id="@+id/Company_Travel"

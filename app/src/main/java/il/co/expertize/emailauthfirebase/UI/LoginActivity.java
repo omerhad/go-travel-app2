@@ -87,4 +87,6 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login);
         progressBar = findViewById(R.id.progressBar);
     }
+
+
 }

@@ -26,10 +26,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".UI.LoginActivity" />
         <activity android:name=".UI.CreateAccount" />
@@ -46,9 +43,11 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
                 <action android:name="android.intent.action.DATE_CHANGED"/>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="com.javacodegeeks.android.A_CUSTOM_INTENT"/>
+                <action android:name="com.javacodegeeks.android.A_NEW_TRAVEL"/>
             </intent-filter>
         </receiver>
+        <service android:name="il.co.expertize.emailauthfirebase.UI.myService">
+        </service>
     </application>
 
 

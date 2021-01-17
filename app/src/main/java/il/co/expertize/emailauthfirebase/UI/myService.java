@@ -7,27 +7,70 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import il.co.expertize.emailauthfirebase.Data.ITravelDataSource;
+import il.co.expertize.emailauthfirebase.Data.TravelFirebaseDataSource;
+import il.co.expertize.emailauthfirebase.Entities.Travel;
+
 public class myService extends Service {
     Integer sum = 0;
+    static Integer numOfTravel = 0;
+    Integer countOfTravel = 0;
+    ITravelDataSource travelDataSource;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference travels = firebaseDatabase.getReference("ExistingTravels");
     boolean isThreadOn = false;
     public final String TAG = "myService";
 
     @Override
     public void onCreate() {
         super.onCreate();
+        travelDataSource = TravelFirebaseDataSource.getInstance();
         Toast.makeText(this,"onCreate", Toast.LENGTH_LONG).show();
         Log.d(TAG," onCreate");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(!isThreadOn)
-        {
-            isThreadOn = true;
-            SumCalc sumCalc = new SumCalc();
-            sumCalc.start();
-        }
-        Toast.makeText(this,"onStartCommand.+ startId:="+startId+ " sum is: " + sum, Toast.LENGTH_LONG).show();
+        travels.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                countOfTravel=0;
+                Intent intent1=new Intent("Add_travel");
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        countOfTravel++;
+                    }
+                    if (countOfTravel>numOfTravel){
+                        intent1.setAction("com.javacodegeeks.android.A_NEW_TRAVEL");
+                        sendBroadcast(intent1);
+                        numOfTravel=countOfTravel;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+//        if(!isThreadOn)
+//        {
+//            isThreadOn = true;
+//            SumCalc sumCalc = new SumCalc();
+//            sumCalc.start();
+//        }
+//        Toast.makeText(this,"onStartCommand.+ startId:="+startId+ " sum is: " + sum, Toast.LENGTH_LONG).show();
         return START_STICKY;
     }
 
@@ -55,5 +98,8 @@ public class myService extends Service {
             }
             isThreadOn = false;
         }
+    }
+   public void printMassage(){
+        Toast.makeText(this,"Added a new travel", Toast.LENGTH_LONG).show();
     }
 }
