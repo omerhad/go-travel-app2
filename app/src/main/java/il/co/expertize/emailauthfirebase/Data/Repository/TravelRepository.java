@@ -21,6 +21,10 @@ import il.co.expertize.emailauthfirebase.Data.ITravelDataSource;
 import il.co.expertize.emailauthfirebase.Data.TravelFirebaseDataSource;
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 
+/**
+ * TravelRepository is a class that takes information from Firebase,
+ * and put the information in the Room, and pass for fragments.
+ */
 public class TravelRepository implements ITravelRepository {
     List<Travel> travelHistory;
     ITravelDataSource travelDataSource;
@@ -39,12 +43,24 @@ public class TravelRepository implements ITravelRepository {
 
 
     private static TravelRepository instance;
+
+    /**
+     * singleton for repository
+     * @param application
+     * @return if exist repository, so return old repository.
+     * otherwise, create new repository, and return him.
+     */
     public static TravelRepository getInstance(Application application) {
         if (instance == null)
             instance = new TravelRepository(application);
         return instance;
     }
 
+
+    /**
+     * constructor.
+     * @param application
+     */
     private TravelRepository(Application application) {
         travelList2=new LinkedList<Travel>();
         travelHistory=new LinkedList<Travel>();
@@ -72,16 +88,28 @@ public class TravelRepository implements ITravelRepository {
 
     }
 
+    /**
+     * get travel and add him to our list of travel
+     * @param travel
+     */
     @Override
     public void addTravel(Travel travel) {
         travelDataSource.addTravel(travel);
     }
 
+    /**
+     * get travel and update him in our list of travel
+     * @param travel
+     */
     @Override
     public void updateTravel(Travel travel) {
         travelDataSource.updateTravel(travel);
     }
 
+    /**
+     * get list of travel and return same list but in MutableLiveData for register fragment
+     * @return MutableLiveData of travel
+     */
     @Override
     public  MutableLiveData<List<Travel>> getAllTravels() {
         travelList2.clear();
@@ -96,7 +124,10 @@ public class TravelRepository implements ITravelRepository {
     }
 
 
-
+    /**
+     * get list of travel and return same list but in MutableLiveData for company fragment
+     * @return MutableLiveData of travel
+     */
     @Override
     public MutableLiveData<List<Travel>> findOpenTravelList() {
 
@@ -110,7 +141,10 @@ public class TravelRepository implements ITravelRepository {
         return mutableLiveDataCompany;
     }
 
-
+    /**
+     * get list of travel and return same list but in MutableLiveData for history fragment
+     * @return MutableLiveData of travel
+     */
     @Override
     public MutableLiveData<List<Travel>> getAllCloseTravelList() {
         LinkedList<Travel> historyTravels = new LinkedList<Travel>();
@@ -124,6 +158,9 @@ public class TravelRepository implements ITravelRepository {
 
     }
 
+    /**
+     * get all travel from Firebase and put in Room
+     */
     public void buildRoom(){
         travelListHis=travelDataSource.getAllTravels();
         historyDataSource.clearTable();
@@ -135,14 +172,27 @@ public class TravelRepository implements ITravelRepository {
         return travelDataSource.getIsSuccess();
     }
 
+    /**
+     * add to listener
+     * @param l
+     */
     @Override
     public void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l) {
         notifyToTravelListListenerRepository = l;
     }
 
+    /**
+     * give the email of current user
+     * @return email of current user
+     */
     @Override
     public String emailOfUser(){
         return user.getEmail();
     }
+
+    /**
+     * give the phone number of current user
+     * @return phone number of current user
+     */
     public String phoneOfUser(){ return user.getPhoneNumber(); }
 }

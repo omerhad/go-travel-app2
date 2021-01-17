@@ -10,36 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import il.co.expertize.emailauthfirebase.R;
 
-import static com.google.android.material.snackbar.BaseTransientBottomBar.*;
-
 public class myBroadcastReciever extends BroadcastReceiver {
-    //private pushInterface callback1;
     private  Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
-        // Extract data included in the Intent
        this.context=context;
-        CharSequence intentData = intent.getCharSequenceExtra("message");
-        Toast.makeText(context, "Javacodegeeks received the Intent's message: " + intentData, Toast.LENGTH_LONG).show();
         if (intent.getAction().matches("com.javacodegeeks.android.A_NEW_TRAVEL")) {
             addNotification();
         }
 
     }
-
-//    public void registerReceiver(pushInterface receiver) {
-//        this.callback1 = receiver;
-//    }
 
     private void addNotification() {
 

@@ -39,6 +39,7 @@ public class myService extends Service {
         Log.d(TAG," onCreate");
     }
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         travels.addValueEventListener(new ValueEventListener() {
