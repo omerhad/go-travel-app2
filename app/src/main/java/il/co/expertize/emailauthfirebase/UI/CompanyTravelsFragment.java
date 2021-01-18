@@ -73,7 +73,6 @@ public class CompanyTravelsFragment extends Fragment implements LocationListener
         }
 
         locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
-//        location=locationManager.getCurrentLocation();
         return view;
 
     }
@@ -119,7 +118,6 @@ public class CompanyTravelsFragment extends Fragment implements LocationListener
                 temp1.setLongitude(lon);
 
                 double  distance= temp.distanceTo(temp1);
-                //     Toast.makeText(this.application.getApplicationContext(), " dis is :" + distance, Toast.LENGTH_LONG).show();
                 if(distance<maxDes)
                     companyTravels.add(travel);
 

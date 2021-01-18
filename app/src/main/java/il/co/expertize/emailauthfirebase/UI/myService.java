@@ -24,7 +24,7 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 public class myService extends Service {
     Integer sum = 0;
     static Integer numOfTravel = 0;
-    Integer countOfTravel = 0;
+    static Integer countOfTravel = 0;
     ITravelDataSource travelDataSource;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference travels = firebaseDatabase.getReference("ExistingTravels");
@@ -35,8 +35,6 @@ public class myService extends Service {
     public void onCreate() {
         super.onCreate();
         travelDataSource = TravelFirebaseDataSource.getInstance();
-        Toast.makeText(this,"onCreate", Toast.LENGTH_LONG).show();
-        Log.d(TAG," onCreate");
     }
 
 
@@ -65,13 +63,7 @@ public class myService extends Service {
             }
         });
 
-//        if(!isThreadOn)
-//        {
-//            isThreadOn = true;
-//            SumCalc sumCalc = new SumCalc();
-//            sumCalc.start();
-//        }
-//        Toast.makeText(this,"onStartCommand.+ startId:="+startId+ " sum is: " + sum, Toast.LENGTH_LONG).show();
+
         return START_STICKY;
     }
 
@@ -100,7 +92,5 @@ public class myService extends Service {
             isThreadOn = false;
         }
     }
-   public void printMassage(){
-        Toast.makeText(this,"Added a new travel", Toast.LENGTH_LONG).show();
-    }
+
 }

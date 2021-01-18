@@ -122,13 +122,13 @@ public class Travel {
     }
 
     public Travel() {
-//        this.arrivalDate=new Date(12/12/2020);
-//        this.clientEmail=" ";
-//        this.clientName=" ";
-//        this.clientPhone=" ";
-//        this.travelDate=new Date(12/12/2021);
-//        this.travelLocation= new UserLocation(2,2);
-//        this.sourceLocation= new UserLocation(2,2);
+        this.arrivalDate=new Date(12/12/2020);
+        this.clientEmail=" ";
+        this.clientName=" ";
+        this.clientPhone=" ";
+        this.travelDate=new Date(12/12/2021);
+        this.travelLocation= new UserLocation(2,2);
+        this.sourceLocation= new UserLocation(2,2);
     }
 
     public void setTravelId(String id) {
