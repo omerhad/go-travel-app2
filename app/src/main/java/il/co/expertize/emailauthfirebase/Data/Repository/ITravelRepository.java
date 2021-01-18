@@ -11,14 +11,16 @@ public interface ITravelRepository {
 
     void addTravel(Travel travel);
     void updateTravel(Travel travel);
-    MutableLiveData<List<Travel>> getAllTravels();
-    MutableLiveData<List<Travel>> findOpenTravelList();
-    MutableLiveData<List<Travel>> getAllCloseTravelList();
+    List<Travel> getAllTravels();
+   List<Travel> findOpenTravelList();
+   List<Travel> getAllCloseTravelList();
     MutableLiveData<Boolean> getIsSuccess();
     String emailOfUser();
     String phoneOfUser();
     interface NotifyToTravelListListener {
         void onTravelsChanged();
     }
-    void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l);
+    void setNotifyToTravelListListenerReg(ITravelRepository.NotifyToTravelListListener l);
+    void setNotifyToTravelListListenerComp(ITravelRepository.NotifyToTravelListListener l);
+    void setNotifyToTravelListListenerHis(ITravelRepository.NotifyToTravelListListener l);
 }

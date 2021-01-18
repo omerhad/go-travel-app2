@@ -27,11 +27,17 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
  */
 public class TravelRepository implements ITravelRepository {
     List<Travel> travelHistory;
+    List<Travel> companyTravels;
+    List<Travel> historyTravels;
     ITravelDataSource travelDataSource;
     FirebaseUser user;
     public FirebaseAuth mAuth;
     private IHistoryDataSource historyDataSource;
-    private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository;
+
+
+    private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository1;
+    private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository2;
+    private ITravelRepository.NotifyToTravelListListener notifyToTravelListListenerRepository3;
     List<Travel> travelListHis;
     List<Travel> travelList2;
 
@@ -74,18 +80,14 @@ public class TravelRepository implements ITravelRepository {
             @Override
             public void onTravelsChanged() {
                 buildRoom();
-                findOpenTravelList();
-                getAllCloseTravelList();
-                getAllTravels();
-                if (notifyToTravelListListenerRepository != null)
-                    notifyToTravelListListenerRepository.onTravelsChanged();
+                findOpenTravelList2();
+                getAllCloseTravelList2();
+                getAllTravels2();
 
             }
         };
 
         travelDataSource.setNotifyToTravelListListener(notifyToTravelListListener);
-
-
     }
 
     /**
@@ -110,52 +112,68 @@ public class TravelRepository implements ITravelRepository {
      * get list of travel and return same list but in MutableLiveData for register fragment
      * @return MutableLiveData of travel
      */
-    @Override
-    public  MutableLiveData<List<Travel>> getAllTravels() {
+
+    private void getAllTravels2() {
         travelList2.clear();
         for (Travel travel:travelDataSource.getAllTravels()) {
             if (travel.getClientEmail().equals(user.getEmail()) && !(travel.getRequesType().equals(Travel.RequestType.close))&&
                     !(travel.getRequesType().equals(Travel.RequestType.paid)))
                 travelList2.add(travel);
         }
+        if (notifyToTravelListListenerRepository1 != null)
+            notifyToTravelListListenerRepository1.onTravelsChanged();
 
-        mutableLiveDataRegistered.setValue(travelList2);
-        return mutableLiveDataRegistered;
     }
+
+    @Override
+    public List<Travel>getAllTravels(){
+        return travelList2;
+    }
+
 
 
     /**
      * get list of travel and return same list but in MutableLiveData for company fragment
      * @return MutableLiveData of travel
      */
-    @Override
-    public MutableLiveData<List<Travel>> findOpenTravelList() {
+    private void findOpenTravelList2() {
 
-        LinkedList<Travel> companyTravels = new LinkedList<Travel>();
+         companyTravels = new LinkedList<Travel>();
         for (Travel travel : travelDataSource.findOpenTravelList()) {
             if (travel.getRequesType().equals(Travel.RequestType.sent) || travel.getRequesType().equals(Travel.RequestType.accepted)) {
                     companyTravels.add(travel);
             }
         }
-        mutableLiveDataCompany.setValue(companyTravels);
-        return mutableLiveDataCompany;
+        if (notifyToTravelListListenerRepository2 != null)
+            notifyToTravelListListenerRepository2.onTravelsChanged();
+
     }
+
+
+    @Override
+    public List<Travel> findOpenTravelList(){
+        return companyTravels;
+    }
+
+
 
     /**
      * get list of travel and return same list but in MutableLiveData for history fragment
      * @return MutableLiveData of travel
      */
-    @Override
-    public MutableLiveData<List<Travel>> getAllCloseTravelList() {
-        LinkedList<Travel> historyTravels = new LinkedList<Travel>();
-            for (Travel travel:travelDataSource.getAllTravels()) {
-                if (travel.getRequesType().equals(Travel.RequestType.close)||travel.getRequesType().equals(Travel.RequestType.paid)) {
+    private void getAllCloseTravelList2() {
+        historyTravels = new LinkedList<Travel>();
+            for (Travel travel:historyDataSource.getTravels()) {
+                if (travel.getRequesType().equals(Travel.RequestType.close)) {
                     historyTravels.add(travel);
                 }
             }
-            mutableLiveDataHistory.setValue(historyTravels);
-            return mutableLiveDataHistory;
-
+        if (notifyToTravelListListenerRepository3 != null)
+            notifyToTravelListListenerRepository3.onTravelsChanged();
+    }
+@Override
+    public List<Travel> getAllCloseTravelList(){
+        return historyTravels;
     }
 
     /**
@@ -165,6 +183,7 @@ public class TravelRepository implements ITravelRepository {
         travelListHis=travelDataSource.getAllTravels();
         historyDataSource.clearTable();
         historyDataSource.addTravel(travelListHis);
+        historyTravels=historyDataSource.getTravels();
     }
 
     @Override
@@ -177,10 +196,17 @@ public class TravelRepository implements ITravelRepository {
      * @param l
      */
     @Override
-    public void setNotifyToTravelListListener(ITravelRepository.NotifyToTravelListListener l) {
-        notifyToTravelListListenerRepository = l;
+    public void setNotifyToTravelListListenerReg(ITravelRepository.NotifyToTravelListListener l) {
+        notifyToTravelListListenerRepository1 = l;
     }
-
+    @Override
+    public void setNotifyToTravelListListenerComp(ITravelRepository.NotifyToTravelListListener l) {
+        notifyToTravelListListenerRepository2 = l;
+    }
+    @Override
+    public void setNotifyToTravelListListenerHis(ITravelRepository.NotifyToTravelListListener l) {
+        notifyToTravelListListenerRepository3 = l;
+    }
     /**
      * give the email of current user
      * @return email of current user

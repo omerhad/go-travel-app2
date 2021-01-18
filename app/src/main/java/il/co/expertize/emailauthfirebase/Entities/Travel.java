@@ -122,13 +122,13 @@ public class Travel {
     }
 
     public Travel() {
-        this.arrivalDate=new Date(12/12/2020);
-        this.clientEmail=" ";
-        this.clientName=" ";
-        this.clientPhone=" ";
-        this.travelDate=new Date(12/12/2021);
-        this.travelLocation= new UserLocation(2,2);
-        this.sourceLocation= new UserLocation(2,2);
+//        this.arrivalDate=new Date(12/12/2020);
+//        this.clientEmail=" ";
+//        this.clientName=" ";
+//        this.clientPhone=" ";
+//        this.travelDate=new Date(12/12/2021);
+//        this.travelLocation= new UserLocation(2,2);
+//        this.sourceLocation= new UserLocation(2,2);
     }
 
     public void setTravelId(String id) {
@@ -140,8 +140,13 @@ public class Travel {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         @TypeConverter
-        public Date fromTimestamp(String date) throws ParseException {
-            return (date == null ? null : format.parse(date));
+        public Date fromTimestamp(String date)  {
+            try {
+                return (date == null ? null : format.parse(date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
         @TypeConverter
@@ -149,7 +154,6 @@ public class Travel {
             return date == null ? null : format.format(date);
         }
     }
-
 
 
 

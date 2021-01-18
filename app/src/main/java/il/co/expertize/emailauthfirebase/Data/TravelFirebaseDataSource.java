@@ -124,10 +124,6 @@ public class TravelFirebaseDataSource implements  ITravelDataSource{
         return allTravelsList;
     }
 
-    @Override
-    public List<Travel> getAllCloseTravelList() {
-        return allTravelsList;
-    }
     public MutableLiveData<Boolean> getIsSuccess() {
         return isSuccess;
     }

@@ -13,7 +13,7 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 @TypeConverters({Travel.RequestType.class, Travel.DateConverter.class, Travel.DateConverter.class, Travel.UserLocationConverter.class, Travel.CompanyConverter.class})
 public abstract class RoomDataSource extends RoomDatabase {
 
-    public static final String DATABASE_NAME="MydatabaseNew";
+    public static final String DATABASE_NAME="MydatabaseNew2";
     private static RoomDataSource database;
 
     public static RoomDataSource getInstance(Context context){

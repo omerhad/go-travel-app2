@@ -8,20 +8,20 @@ import java.util.List;
 
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 
-public class HistoryDataSource implements IHistoryDataSource{
+public class HistoryDataSource implements IHistoryDataSource {
     private TravelDao travelDao;
 
-    public HistoryDataSource(Context context){
-        RoomDataSource database= RoomDataSource.getInstance(context);
-        travelDao =database.getTravelDao();
+    public HistoryDataSource(Context context) {
+        RoomDataSource database = RoomDataSource.getInstance(context);
+        travelDao = database.getTravelDao();
         travelDao.clear();
     }
 
-    public LiveData<List<Travel>> getTravels(){
+    public List<Travel> getTravels() {
         return travelDao.getAll();
     }
 
-    public LiveData<Travel> getTravel(String id){
+    public Travel getTravel(String id) {
         return travelDao.get(id);
     }
 
@@ -37,11 +37,11 @@ public class HistoryDataSource implements IHistoryDataSource{
         travelDao.update(p);
     }
 
-    public void deleteTravel(Travel p){
+    public void deleteTravel(Travel p) {
         travelDao.delete(p);
     }
 
-    public void clearTable(){travelDao.clear();}
-
-
+    public void clearTable() {
+        travelDao.clear();
+    }
 }

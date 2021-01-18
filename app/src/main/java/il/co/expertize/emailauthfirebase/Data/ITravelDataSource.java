@@ -12,8 +12,8 @@ public interface ITravelDataSource {
     void updateTravel(Travel travel);
     List<Travel> getAllTravels();
     List<Travel> findOpenTravelList();
-    List<Travel> getAllCloseTravelList();
     MutableLiveData<Boolean> getIsSuccess();
+
     interface NotifyToTravelListListener {
         void onTravelsChanged();
     }

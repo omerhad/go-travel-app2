@@ -16,10 +16,10 @@ import il.co.expertize.emailauthfirebase.Entities.Travel;
 public interface TravelDao {
 
     @Query("select * from travels")
-    LiveData<List<Travel>> getAll();
+    List<Travel> getAll();
 
     @Query("select * from travels where travelId=:id")
-    LiveData<Travel> get(String id);
+    Travel get(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Travel travel);

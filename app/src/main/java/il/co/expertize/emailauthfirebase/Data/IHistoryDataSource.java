@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData;
 import il.co.expertize.emailauthfirebase.Entities.Travel;
 
 public interface IHistoryDataSource {
+    public List<Travel> getTravels();
+    public Travel getTravel(String id);
     public void addTravel(Travel p);
 
     public void addTravel(List<Travel> travelList);
@@ -14,5 +16,4 @@ public interface IHistoryDataSource {
     public void deleteTravel(Travel p);
 
     public void clearTable();
-    public LiveData <List<Travel>> getTravels();
 }
