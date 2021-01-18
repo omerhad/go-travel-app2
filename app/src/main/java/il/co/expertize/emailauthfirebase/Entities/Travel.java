@@ -122,11 +122,11 @@ public class Travel {
     }
 
     public Travel() {
-        this.arrivalDate=new Date(12/12/2020);
+        this.arrivalDate=new Date(2020-12-12);
         this.clientEmail=" ";
         this.clientName=" ";
         this.clientPhone=" ";
-        this.travelDate=new Date(12/12/2021);
+        this.travelDate=new Date(2021-12-12);
         this.travelLocation= new UserLocation(2,2);
         this.sourceLocation= new UserLocation(2,2);
     }
