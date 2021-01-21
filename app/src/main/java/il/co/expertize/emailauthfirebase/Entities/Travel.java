@@ -16,7 +16,7 @@ import il.co.expertize.emailauthfirebase.Data.UserLocation;
 
 @Entity (tableName = "travels")
 public class Travel {
-//
+////
     @NonNull
     @PrimaryKey
     private String travelId = "id";
