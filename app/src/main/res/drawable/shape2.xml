@@ -4,9 +4,9 @@
     android:shape="rectangle">
     <corners android:radius="20dp"/>
     <gradient
-        android:startColor="#181818"
-        android:centerColor="#00CCFF"
-        android:endColor="#181818"
+        android:startColor="#66ccff"
+        android:centerColor="#99ffcc"
+        android:endColor="#66ccff"
         android:angle="90"/>
     <padding android:left="7dp"
         android:top="7dp"
@@ -15,5 +15,5 @@
     <stroke
         android:width="2dip"
         android:color="#FFFFFF" />
-    <corners android:radius= "8dp"/>
+    <corners android:radius= "30dp"/>
 </shape>

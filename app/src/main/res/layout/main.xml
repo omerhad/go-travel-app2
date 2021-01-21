@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/cardview_dark_background"
+        
         android:gravity="center"
         android:orientation="vertical">
 
@@ -23,14 +23,14 @@
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/imogi_with_kipa" />
+            android:src="@drawable/yellow_bus" />
 
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/round_bottons"
+            android:background="@drawable/button_green"
             android:textStyle="bold"
             android:padding="10dp"
             android:text="Create account"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/round_bottons"
+            android:background="@drawable/button_green"
             android:textStyle="bold"
             android:padding="10dp"
             android:text="Login" />

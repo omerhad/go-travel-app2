@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:textStyle="bold"
-        android:background="@drawable/round_bottons"/>
+        android:background="@drawable/button_green"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

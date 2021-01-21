@@ -14,7 +14,6 @@
         android:id="@+id/list_register"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:divider="#f00"
-        android:dividerHeight="2dp"
+        android:dividerHeight="50dp"
         android:layerType="hardware" />
 </RelativeLayout>

@@ -13,7 +13,6 @@
         android:id="@+id/list_history"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:divider="#f008"
-        android:dividerHeight="2dp"
+        android:dividerHeight="50dp"
         android:layerType="hardware" />
 </RelativeLayout>
